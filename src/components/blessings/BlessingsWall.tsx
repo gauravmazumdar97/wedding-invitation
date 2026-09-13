@@ -105,7 +105,7 @@ export function BlessingsWall() {
             <li key={blessing.id} className="festival-card px-5 py-5 sm:px-6">
               <p className="festival-kicker">{blessing.name}</p>
               <p className="mt-3 font-serif text-lg italic leading-relaxed text-[var(--color-navy)]">
-                "{blessing.message}"
+                {`"${blessing.message}"`}
               </p>
             </li>
           ))}

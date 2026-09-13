@@ -22,7 +22,7 @@ export function FamilyBlessings() {
         <div className="relative mx-auto mt-10 grid max-w-3xl gap-7 text-center sm:mt-12 md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-6">
           <TiltCard max={8} pressFeedback>
           <article className="festival-card px-5 py-7">
-            <p className="festival-kicker">Bride's side</p>
+            <p className="festival-kicker">{"Bride's side"}</p>
             <p className="mt-3 font-serif text-[1.45rem] text-[var(--color-navy)] sm:mt-4 sm:text-3xl">
               {familyLine(wedding.families.bride)}
             </p>
@@ -34,7 +34,7 @@ export function FamilyBlessings() {
           </p>
           <TiltCard max={8} pressFeedback>
           <article className="festival-card px-5 py-7">
-            <p className="festival-kicker">Groom's side</p>
+            <p className="festival-kicker">{"Groom's side"}</p>
             <p className="mt-3 font-serif text-[1.45rem] text-[var(--color-navy)] sm:mt-4 sm:text-3xl">
               {familyLine(wedding.families.groom)}
             </p>

@@ -17,7 +17,7 @@ export function OurStory() {
         <DepthStage>
           <FestivalHeading kicker="Our story" title={wedding.storyIntro.title} />
           <blockquote className="mx-auto mt-6 max-w-2xl px-1 text-center font-serif text-[clamp(1.35rem,5.4vw,1.85rem)] italic leading-snug text-[var(--color-navy)] sm:mt-10 sm:text-4xl">
-            "{language === "bn" ? wedding.storyIntro.textBn : wedding.storyIntro.text}"
+            {`"${language === "bn" ? wedding.storyIntro.textBn : wedding.storyIntro.text}"`}
           </blockquote>
         </DepthStage>
       </section>
