@@ -7,13 +7,11 @@ import { InvitationLoader } from "@/components/opening/InvitationLoader";
 import { InvitationEnvelope } from "@/components/opening/InvitationEnvelope";
 import { WeddingHero } from "@/components/hero/WeddingHero";
 import { PersonalizedWelcome } from "@/components/welcome/PersonalizedWelcome";
-import { BengaliHeritage } from "@/components/culture/BengaliHeritage";
 import { SaveTheDate } from "@/components/date/SaveTheDate";
 import { CoupleIntroduction } from "@/components/couple/CoupleIntroduction";
 import { OurStory } from "@/components/story/OurStory";
 import { PhotoReveal } from "@/components/gallery/PhotoReveal";
 import { WeddingJourney } from "@/components/journey/WeddingJourney";
-import { WeddingCeremonyStory } from "@/components/ceremony/WeddingCeremonyStory";
 import { CinematicGallery } from "@/components/gallery/CinematicGallery";
 import { MemoryCanvas } from "@/components/gallery/MemoryCanvas";
 import { Countdown } from "@/components/date/Countdown";
@@ -72,13 +70,11 @@ function Story({ showLoader }: { showLoader: boolean }) {
           <main>
             <WeddingHero />
             <PersonalizedWelcome />
-            <BengaliHeritage />
             <SaveTheDate />
             <CoupleIntroduction />
             <OurStory />
             <PhotoReveal />
             <WeddingJourney />
-            <WeddingCeremonyStory />
             <CinematicGallery />
             <MemoryCanvas />
             <Countdown />
