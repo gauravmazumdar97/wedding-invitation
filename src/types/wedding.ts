@@ -51,6 +51,14 @@ export interface StoryChapter {
   photoAlt: string;
 }
 
+export interface WeddingTradition {
+  id: string;
+  title: string;
+  titleBn: string;
+  line: string;
+  lineBn: string;
+}
+
 export interface WeddingEvent {
   id: EventId | string;
   enabled: boolean;
@@ -150,6 +158,15 @@ export interface WeddingConfig {
     textBn: string;
   };
   story: StoryChapter[];
+  traditions: {
+    kicker: string;
+    kickerBn: string;
+    title: string;
+    titleBn: string;
+    intro: string;
+    introBn: string;
+    rites: WeddingTradition[];
+  };
   events: WeddingEvent[];
   venues: Venue[];
   travel: TravelInfo;
@@ -216,6 +233,8 @@ export interface WeddingConfig {
     comeCelebrate: string;
     ourStory: string;
     ourStoryBn: string;
+    traditions: string;
+    traditionsBn: string;
     events: string;
     eventsBn: string;
     gallery: string;

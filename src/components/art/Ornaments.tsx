@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 export function Lotus({ className }: { className?: string }) {
@@ -60,6 +61,24 @@ export function Divider({ className }: { className?: string }) {
       <span className="h-px w-8 bg-[var(--color-gold)]/70" />
       <Lotus className="h-5 w-6 opacity-80" />
       <span className="h-px w-8 bg-[var(--color-gold)]/70" />
+    </div>
+  );
+}
+
+export function CultureFrame({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("relative", className)}>
+      <CornerAlpana className="pointer-events-none absolute left-2 top-2 h-8 w-8 opacity-70 sm:h-10 sm:w-10" />
+      <CornerAlpana className="pointer-events-none absolute right-2 top-2 h-8 w-8 rotate-90 opacity-70 sm:h-10 sm:w-10" />
+      <CornerAlpana className="pointer-events-none absolute bottom-2 left-2 h-8 w-8 -rotate-90 opacity-70 sm:h-10 sm:w-10" />
+      <CornerAlpana className="pointer-events-none absolute bottom-2 right-2 h-8 w-8 rotate-180 opacity-70 sm:h-10 sm:w-10" />
+      {children}
     </div>
   );
 }

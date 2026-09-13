@@ -37,7 +37,7 @@ export function MemoryCanvas() {
             <button
               type="button"
               onClick={() => setActive(photo.src)}
-              className="app-press h-full w-full overflow-hidden rounded-[1.05rem] sm:rounded-[1.2rem]"
+              className="festival-card app-press h-full w-full overflow-hidden"
             >
               <WeddingPhoto
                 src={photo.src}

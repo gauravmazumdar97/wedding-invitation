@@ -93,17 +93,16 @@ export function RSVPExperience() {
     <section id="rsvp" className="section-pad pb-[calc(var(--section-y)+0.5rem)]">
       <DepthStage>
       <FestivalHeading kicker="Kindly respond" title="Will you join us?" />
-      <p className="mt-3 text-center font-serif text-[var(--color-muted)]">{wedding.rsvp.byline}</p>
 
       <form
-        className="mx-auto mt-10 max-w-xl"
+        className="festival-card mx-auto mt-10 max-w-xl px-5 py-8 sm:px-8 sm:py-10"
         onSubmit={(event) => {
           event.preventDefault();
           void submit();
         }}
       >
         {done && status !== "pending" ? (
-          <div className="festival-card px-6 py-12 text-center">
+          <div className="px-1 py-4 text-center">
             <p className="font-serif text-2xl italic text-[var(--color-navy)]">{thanks}</p>
             <button
               type="button"
@@ -115,7 +114,8 @@ export function RSVPExperience() {
           </div>
         ) : (
           <>
-            <label className="block">
+            <p className="text-center font-serif text-[var(--color-muted)]">{wedding.rsvp.byline}</p>
+            <label className="mt-8 block">
               <span className="festival-kicker">Your name</span>
               <input
                 className="field-control mt-3 w-full border-0 border-b border-[var(--color-navy)]/20 bg-transparent py-3 font-serif text-xl italic text-[var(--color-navy)] outline-none"

@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, type RefObject } from "react";
+import { subscribePointer } from "@/lib/pointer-bus";
 import { useIsFinePointer, useIsMobile, usePrefersReducedMotion } from "@/hooks/useMedia";
 
 /**
- * Desktop: pointer-driven 3D tilt.
- * Touch: soft ambient drift so depth stays present without hover or motion permission prompts.
+ * Desktop: pointer-driven 3D tilt from the shared PointerBus.
+ * Touch: soft ambient drift so depth stays present without hover.
  */
 export function useSceneTilt(
   ref: RefObject<HTMLElement | null>,
@@ -55,12 +56,6 @@ export function useSceneTilt(
       if (!frame && running) frame = window.requestAnimationFrame(tick);
     };
 
-    const onPointerMove = (event: PointerEvent) => {
-      targetX = (event.clientX / window.innerWidth - 0.5) * 2;
-      targetY = (event.clientY / window.innerHeight - 0.5) * 2;
-      schedule();
-    };
-
     const ambient = (now: number) => {
       if (!running) return;
       const t = now * 0.00032;
@@ -81,17 +76,26 @@ export function useSceneTilt(
       }
     };
 
-    if (fine) {
-      window.addEventListener("pointermove", onPointerMove, { passive: true });
-    } else {
-      ambientFrame = window.requestAnimationFrame(ambient);
-    }
+    const unsub = fine
+      ? subscribePointer((pointer) => {
+          if (!pointer.inside) {
+            targetX = 0;
+            targetY = 0;
+          } else {
+            targetX = pointer.nx;
+            targetY = pointer.ny;
+          }
+          schedule();
+        })
+      : undefined;
+
+    if (!fine) ambientFrame = window.requestAnimationFrame(ambient);
 
     document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
       running = false;
-      window.removeEventListener("pointermove", onPointerMove);
+      unsub?.();
       document.removeEventListener("visibilitychange", onVisibility);
       if (frame) window.cancelAnimationFrame(frame);
       if (ambientFrame) window.cancelAnimationFrame(ambientFrame);

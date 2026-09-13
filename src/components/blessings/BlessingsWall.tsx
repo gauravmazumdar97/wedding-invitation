@@ -58,11 +58,10 @@ export function BlessingsWall() {
   return (
     <section className="section-pad">
       <DepthStage>
-      <FestivalHeading kicker={`Blessings wall · ${blessings.length} wishes`} title="Aashirvaad Blessings">
-        <p className="mt-4 font-serif text-[var(--color-muted)]">
-          Offer a prayer, a verse, or a blessing for their new life together.
-        </p>
-      </FestivalHeading>
+      <FestivalHeading kicker={`Blessings wall · ${blessings.length} wishes`} title="Aashirvaad Blessings" />
+      <p className="festival-card mx-auto mt-5 max-w-xl px-5 py-5 text-center font-serif text-[var(--color-muted)] sm:mt-6 sm:px-8 sm:py-6">
+        Offer a prayer, a verse, or a blessing for their new life together.
+      </p>
 
       <form
         className="festival-card mx-auto mt-10 max-w-xl px-6 py-8 sm:px-8"

@@ -51,7 +51,7 @@ export function WeddingHero() {
     <section className="scene-3d relative px-[var(--page-x)] pb-16 pt-[max(4.75rem,calc(var(--safe-top)+3.75rem))] text-center landscape:pb-10 landscape:pt-[max(3.5rem,calc(var(--safe-top)+2.5rem))] sm:pb-24 sm:pt-[max(5.5rem,calc(var(--safe-top)+4.5rem))]">
       <div ref={scrollLayer} className="preserve-3d will-change-transform">
         <div ref={tiltLayer} className="preserve-3d">
-          <p className="festival-kicker">A love letter, set in motion</p>
+          <p className="festival-kicker">{language === "bn" ? wedding.copy.shubhoBibaho : "Shubho Bibaho"}</p>
           <div className="mx-auto mt-7 flex max-w-xl items-end justify-center gap-2.5 sm:mt-10 sm:gap-5">
             {portraits.map((src, index) => (
               <div
@@ -63,7 +63,7 @@ export function WeddingHero() {
               >
                 <TiltCard max={nativeScroll ? 8 : 14} pressFeedback>
                   <div
-                    className={`dot-screen overflow-hidden rounded-[1.05rem] ${
+                    className={`festival-card dot-screen overflow-hidden ${
                       index === 1
                         ? "h-[8.75rem] w-[6.5rem] sm:h-56 sm:w-40"
                         : "h-[6.25rem] w-[4.6rem] sm:h-40 sm:w-[7.25rem]"
@@ -93,8 +93,11 @@ export function WeddingHero() {
             {first.bengaliName} ও {second.bengaliName}
           </p>
           <p className="mt-4 font-sans text-[0.65rem] uppercase tracking-[0.2em] text-[var(--color-coral)] sm:mt-6 sm:text-[0.68rem] sm:tracking-[0.28em]">
-            {language === "bn" ? wedding.date.displayBn : wedding.date.display} · {wedding.location.city}
+            {language === "bn" ? wedding.date.displayBn : wedding.date.display} · {language === "bn" ? wedding.location.cityBn : wedding.location.city}
             {wedding.location.region ? `, ${wedding.location.region}` : ""}
+          </p>
+          <p className="festival-card mx-auto mt-4 max-w-sm px-4 py-3 font-serif text-base italic text-[var(--color-muted)] sm:mt-5 sm:px-5 sm:py-4 sm:text-lg">
+            {language === "bn" ? wedding.hero.lineBn : wedding.hero.line}
           </p>
         </div>
       </div>

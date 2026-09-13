@@ -115,6 +115,74 @@ export const wedding: WeddingConfig = {
       photoAlt: "Ananya and Rohan",
     },
   ],
+  traditions: {
+    kicker: "A Bengali wedding",
+    kickerBn: "একটি বাংলা শুভ বিবাহ",
+    title: "Written in ritual",
+    titleBn: "আলপনায় লেখা",
+    intro:
+      "Two Kolkata houses meet in rice, turmeric, sindoor and song. These are the signs and rites that will hold Ananya and Rohan as they marry.",
+    introBn:
+      "দুটি কলকাতার ঘর মিলবে ধান, হলুদ, সিঁদুর আর গানে। অনন্যা ও রোহনের বিবাহ এই চিহ্ন ও রীতির মধ্যেই ধরা থাকবে।",
+    rites: [
+      {
+        id: "aiburo-bhaat",
+        title: "Aiburo Bhaat",
+        titleBn: "আইবুড়ো ভাত",
+        line: "The last meal in the natal home as an unmarried daughter or son, shared with the people who raised them.",
+        lineBn: "বিয়ের আগে নিজের ঘরে শেষ ভোজন, যাঁরা বড় করেছেন তাঁদের সঙ্গে।",
+      },
+      {
+        id: "gaye-holud",
+        title: "Gaye Holud",
+        titleBn: "গায়ে হলুদ",
+        line: "Turmeric and marigold from both houses, smeared in blessing until the courtyard turns gold.",
+        lineBn: "দুই ঘরের হলুদ ও গাঁদা, আশীর্বাদে আঙ্গিনা সোনা হয়ে ওঠে।",
+      },
+      {
+        id: "ashirbaad",
+        title: "Ashirbaad",
+        titleBn: "আশীর্বাদ",
+        line: "Elders bless the couple with paddy, durva grass and a touch of gold.",
+        lineBn: "গুরুজনেরা ধান, দূর্বা আর সোনা দিয়ে আশীর্বাদ করেন।",
+      },
+      {
+        id: "subho-drishti",
+        title: "Subho Drishti",
+        titleBn: "শুভ দৃষ্টি",
+        line: "The first blessed gaze at the mandap, often through betel leaves, when the dhaak is loudest.",
+        lineBn: "মণ্ডপে প্রথম শুভ দৃষ্টি, প্রায়ই পানের পাতায়, ঢাকের মাঝে।",
+      },
+      {
+        id: "mala-badal",
+        title: "Mala Badal",
+        titleBn: "মালা বদল",
+        line: "Garlands of tuberose and marigold exchanged as the first public promise.",
+        lineBn: "রজনীগন্ধা ও গাঁদার মালা বদল, প্রথম প্রকাশ্য প্রতিশ্রুতি।",
+      },
+      {
+        id: "saat-paak",
+        title: "Saat Paak",
+        titleBn: "সাত পাক",
+        line: "The bride, carried on a pidi, circles the groom seven times before they sit as one.",
+        lineBn: "কনে পিঁড়িতে চড়ে বরকে সাতবার প্রদক্ষিণ করেন।",
+      },
+      {
+        id: "sindoor-daan",
+        title: "Sindoor Daan",
+        titleBn: "সিঁদুর দান",
+        line: "Vermillion in the hair parting, the quiet moment the marriage is sealed.",
+        lineBn: "সিঁথিতে সিঁদুর, যে নিঃশব্দ মুহূর্তে বিবাহ সম্পন্ন হয়।",
+      },
+      {
+        id: "bou-bhaat",
+        title: "Bou Bhaat",
+        titleBn: "বৌ ভাত",
+        line: "The bride's first meal in her new house, and the feast that welcomes both families as one.",
+        lineBn: "নতুন ঘরে কনের প্রথম ভোজন, দুই পরিবারের মিলনের ভোজ।",
+      },
+    ],
+  },
   events: [
     {
       id: "aiburo-bhaat",
@@ -409,6 +477,8 @@ export const wedding: WeddingConfig = {
     comeCelebrate: "এসো, আমাদের আনন্দের সঙ্গী হও",
     ourStory: "Our Story",
     ourStoryBn: "আমাদের গল্প",
+    traditions: "Traditions",
+    traditionsBn: "ঐতিহ্য",
     events: "Events",
     eventsBn: "অনুষ্ঠান",
     gallery: "Gallery",

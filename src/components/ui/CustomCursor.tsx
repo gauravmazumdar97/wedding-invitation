@@ -1,48 +1,68 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { subscribePointer } from "@/lib/pointer-bus";
 import { useIsFinePointer, usePrefersReducedMotion } from "@/hooks/useMedia";
 
-/** Cursor that updates DOM directly - no React re-render on every mousemove. */
 export function CustomCursor() {
   const fine = useIsFinePointer();
   const reduced = usePrefersReducedMotion();
   const dot = useRef<HTMLDivElement>(null);
-  const hovering = useRef(false);
+  const ring = useRef<HTMLDivElement>(null);
+  const label = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (!fine || reduced) return undefined;
-    const el = dot.current;
-    if (!el) return undefined;
+    document.documentElement.classList.add("has-cursor");
 
-    let x = 0;
-    let y = 0;
+    const dotNode = dot.current;
+    const ringNode = ring.current;
+    const labelNode = label.current;
+    if (!dotNode || !ringNode) return undefined;
+
+    let ringX = window.innerWidth / 2;
+    let ringY = window.innerHeight / 2;
+    let hover = false;
     let frame = 0;
-    let dirty = false;
+    let running = true;
 
-    const paint = () => {
-      frame = 0;
-      dirty = false;
-      const scale = hovering.current ? 1.55 : 1;
-      el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) scale(${scale})`;
+    const tick = () => {
+      if (!running) return;
+      const pointer = { x: ringX, y: ringY };
+      const snapX = Number(dotNode.dataset.x || pointer.x);
+      const snapY = Number(dotNode.dataset.y || pointer.y);
+      ringX += (snapX - ringX) * 0.18;
+      ringY += (snapY - ringY) * 0.18;
+      const scale = hover ? 2.15 : 1;
+      ringNode.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%) scale(${scale})`;
+      ringNode.style.opacity = hover ? "1" : "0.7";
+      frame = window.requestAnimationFrame(tick);
     };
 
-    const move = (event: MouseEvent) => {
-      x = event.clientX;
-      y = event.clientY;
-      const target = event.target as HTMLElement | null;
-      hovering.current = Boolean(
-        target?.closest("a, button, input, textarea, select, [data-cursor='hover']"),
-      );
-      if (!dirty) {
-        dirty = true;
-        frame = window.requestAnimationFrame(paint);
+    const unsub = subscribePointer((pointer) => {
+      const cx = pointer.inside ? pointer.clientX : window.innerWidth / 2;
+      const cy = pointer.inside ? pointer.clientY : window.innerHeight / 2;
+      dotNode.dataset.x = String(cx);
+      dotNode.dataset.y = String(cy);
+      dotNode.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%)`;
+      dotNode.style.opacity = pointer.inside ? "1" : "0";
+      ringNode.style.opacity = pointer.inside ? (hover ? "1" : "0.7") : "0";
+
+      const under = document.elementFromPoint(cx, cy) as HTMLElement | null;
+      hover = Boolean(under?.closest("a, button, input, textarea, select, [data-cursor='hover']"));
+      const gallery = Boolean(under?.closest("#gallery button, [data-cursor='view']"));
+      if (labelNode) {
+        labelNode.textContent = gallery ? "View" : hover ? "Open" : "";
+        labelNode.style.opacity = hover ? "1" : "0";
       }
-    };
+    });
 
-    window.addEventListener("pointermove", move, { passive: true });
+    frame = window.requestAnimationFrame(tick);
+
     return () => {
-      window.removeEventListener("pointermove", move);
+      running = false;
+      unsub();
+      document.documentElement.classList.remove("has-cursor");
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, [fine, reduced]);
@@ -50,12 +70,11 @@ export function CustomCursor() {
   if (!fine || reduced) return null;
 
   return (
-    <div
-      ref={dot}
-      className="pointer-events-none fixed left-0 top-0 z-[90] hidden will-change-transform md:block"
-      aria-hidden
-    >
-      <span className="block h-3 w-3 rounded-full border border-[#c4a574]" />
-    </div>
+    <>
+      <div ref={dot} className="cursor-dot pointer-events-none fixed left-0 top-0 z-[90] hidden md:block" aria-hidden />
+      <div ref={ring} className="cursor-ring pointer-events-none fixed left-0 top-0 z-[90] hidden md:block" aria-hidden>
+        <span ref={label} className="cursor-label" />
+      </div>
+    </>
   );
 }

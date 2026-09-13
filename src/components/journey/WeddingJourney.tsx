@@ -32,7 +32,7 @@ export function WeddingJourney() {
   return (
     <section id="events" className="section-pad">
       <DepthStage>
-        <FestivalHeading kicker="Celebrations" title="The Schedule" />
+        <FestivalHeading kicker="Celebrations" title="The Schedule" bengali="অনুষ্ঠানের সূচি" />
         <div className="mx-auto mt-8 max-w-xl space-y-4 sm:mt-12 sm:space-y-6">
           {events.map((event) => {
             const venue = venueById(event.venueId);
@@ -59,7 +59,13 @@ export function WeddingJourney() {
                       <h3 className="font-serif text-lg leading-snug text-[var(--color-navy)] sm:text-2xl">
                         {language === "bn" ? event.nameBn : event.name}
                       </h3>
+                      {language === "en" ? (
+                        <p className="font-bn text-sm text-[var(--color-maroon)]">{event.nameBn}</p>
+                      ) : null}
                       <p className="mt-1 text-sm text-[var(--color-muted)]">{venue?.name}</p>
+                      <p className="mt-2 font-serif text-sm italic leading-relaxed text-[var(--color-muted)] sm:text-base">
+                        {language === "bn" ? event.descriptionBn : event.description}
+                      </p>
                     </div>
                   </div>
                 </article>

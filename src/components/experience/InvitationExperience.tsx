@@ -20,6 +20,7 @@ import { CustomCursor } from "@/components/ui/CustomCursor";
 import { SampleBadge } from "@/components/ui/SampleBadge";
 import { ScrollAtmosphere } from "@/components/motion/ScrollAtmosphere";
 import { ScrollHint } from "@/components/motion/ScrollHint";
+import { BengaliTraditions } from "@/components/culture/BengaliTraditions";
 import { wedding } from "@/config/wedding";
 import { coupleDisplay } from "@/lib/invite";
 
@@ -53,6 +54,7 @@ function Story() {
         <MemoryCanvas />
         <ClosingQuote />
         <Countdown />
+        <BengaliTraditions />
         <WeddingJourney />
         <VenueExperience />
         <FamilyBlessings />

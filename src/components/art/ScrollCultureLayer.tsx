@@ -56,7 +56,7 @@ export function ScrollCultureLayer() {
   const count = mobile ? 3 : nativeScroll ? 4 : 6;
 
   return (
-    <div ref={root} className="pointer-events-none fixed inset-0 z-[35] overflow-hidden scene-3d" aria-hidden>
+    <div ref={root} className="pointer-events-none fixed inset-0 z-[1] overflow-hidden scene-3d" aria-hidden>
       <div ref={world} className="preserve-3d absolute inset-0 will-change-transform">
         <svg className="absolute inset-y-0 left-0 h-full w-12 opacity-35 sm:w-16 sm:opacity-45 md:w-28" viewBox="0 0 80 900" fill="none">
           <path
@@ -96,22 +96,18 @@ export function ScrollCultureLayer() {
           );
         })}
 
-        {!nativeScroll ? (
-          <>
-            <div
-              className="culture-motif absolute bottom-[18%] left-[7%]"
-              style={{ transform: "translate3d(0, calc(var(--culture-p, 0) * -12vh), 0)" }}
-            >
-              <ShankhaPola className="h-9 w-20 opacity-55" />
-            </div>
-            <div
-              className="culture-motif absolute bottom-[12%] right-[6%]"
-              style={{ transform: "translate3d(0, calc(var(--culture-p, 0) * -9vh), 0)" }}
-            >
-              <Diya className="h-9 w-12 opacity-50" />
-            </div>
-          </>
-        ) : null}
+        <div
+          className="culture-motif absolute bottom-[16%] left-[6%]"
+          style={{ transform: "translate3d(0, calc(var(--culture-p, 0) * -10vh), 0)" }}
+        >
+          <ShankhaPola className="h-8 w-16 opacity-50 sm:h-10 sm:w-20 sm:opacity-60" />
+        </div>
+        <div
+          className="culture-motif absolute bottom-[10%] right-[5%]"
+          style={{ transform: "translate3d(0, calc(var(--culture-p, 0) * -8vh), 0)" }}
+        >
+          <Diya className="h-8 w-11 opacity-50 sm:h-10 sm:w-14" />
+        </div>
       </div>
     </div>
   );

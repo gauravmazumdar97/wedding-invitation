@@ -25,11 +25,11 @@ export function VenueExperience() {
   return (
     <section id="venue" className="section-pad">
       <DepthStage>
-        <FestivalHeading kicker="The venue" title={featured.name} />
-        <p className="mt-3 text-center font-serif text-xl italic text-[var(--color-navy)] sm:text-2xl">
-          {wedding.location.city}, {wedding.location.region}
-        </p>
+        <FestivalHeading kicker="The venue" title={featured.name} bengali={wedding.location.cityBn} />
         <div className="festival-card mx-auto mt-8 max-w-xl overflow-hidden">
+          <p className="px-5 pt-5 text-center font-serif text-xl italic text-[var(--color-navy)] sm:px-6 sm:pt-6 sm:text-2xl">
+            {language === "bn" ? wedding.location.cityBn : wedding.location.city}, {wedding.location.region}
+          </p>
           <iframe
             title={featured.name}
             src={mapEmbed(featured.mapLink)}
