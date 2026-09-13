@@ -1,0 +1,35 @@
+{
+  "guest001": {
+    "guestId": "guest001",
+    "guestName": "Mr. & Mrs. Sen",
+    "familyName": "Sen Family",
+    "greetingBn": "প্রিয় সেন পরিবার",
+    "inviteText": "We would be delighted to celebrate with you",
+    "inviteTextBn": "আপনাদের সঙ্গে এই আনন্দ ভাগ করে নিতে পারলে আমরা ধন্য",
+    "allowedGuests": 4,
+    "events": ["aiburo-bhaat", "ashirbaad", "mehendi", "haldi", "sangeet", "wedding", "reception"],
+    "relationship": "family"
+  },
+  "guest002": {
+    "guestId": "guest002",
+    "guestName": "Aditi and Kabir",
+    "familyName": "Mehra",
+    "greetingBn": "প্রিয় অধিতি ও কবীর",
+    "inviteText": "Come dance, eat, and witness the vows",
+    "inviteTextBn": "এসো, আমাদের শুভ পরিণয়ের সাক্ষী হও",
+    "allowedGuests": 2,
+    "events": ["sangeet", "wedding", "reception"],
+    "relationship": "friend"
+  },
+  "guest003": {
+    "guestId": "guest003",
+    "guestName": "The Roy Office",
+    "familyName": "Roy",
+    "greetingBn": "প্রিয় সহকর্মীরা",
+    "inviteText": "We would be honoured by your presence at the reception",
+    "inviteTextBn": "রিসেপশনে আপনাদের উপস্থিতি আমাদের সম্মান",
+    "allowedGuests": 2,
+    "events": ["reception"],
+    "relationship": "colleague"
+  }
+}

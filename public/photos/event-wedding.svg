@@ -1,0 +1,16 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" role="img" aria-label="[PHOTO_WEDDING]">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7efe4"/>
+      <stop offset="1" stop-color="#8f1d22"/>
+    </linearGradient>
+    <filter id="p"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2"/><feColorMatrix values="0 0 0 0 0.85 0 0 0 0 0.78 0 0 0 0 0.7 0 0 0 0.18 0"/></filter>
+  </defs>
+  <rect width="1400" height="900" fill="url(#g)"/>
+  <rect width="1400" height="900" filter="url(#p)"/>
+  <circle cx="1008" cy="198" r="252" fill="#c4a574" opacity="0.18"/>
+  <circle cx="280" cy="702" r="196" fill="#8f1d22" opacity="0.12"/>
+  <path d="M168 108 C308 162, 280 252, 196 288" fill="none" stroke="#c4a574" stroke-width="2"/>
+  <text x="50%" y="48%" text-anchor="middle" fill="#2a1b18" font-family="Georgia, serif" font-size="63" letter-spacing="6">[PHOTO_WEDDING]</text>
+  <text x="50%" y="54%" text-anchor="middle" fill="#6d5a4e" font-family="Georgia, serif" font-size="31" letter-spacing="3">Replace in /public/photos</text>
+</svg>

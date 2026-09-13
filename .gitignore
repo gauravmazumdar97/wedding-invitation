@@ -1,0 +1,29 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# next
+/.next/
+/out/
+
+# env
+.env
+.env*.local
+
+# runtime data
+/data/rsvps.json
+/data/admin-session.json
+
+# debug
+npm-debug.log*
+.DS_Store
+*.pem
+
+# typescript
+*.tsbuildinfo
