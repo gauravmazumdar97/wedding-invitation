@@ -9,15 +9,24 @@ interface TiltCardProps {
   className?: string;
   wrapperClassName?: string;
   max?: number;
+  /** Subtle press scale on touch when tilt is unavailable. */
+  pressFeedback?: boolean;
 }
 
-export function TiltCard({ children, className, wrapperClassName, max = 12 }: TiltCardProps) {
+export function TiltCard({
+  children,
+  className,
+  wrapperClassName,
+  max = 12,
+  pressFeedback = true,
+}: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const shine = useRef<HTMLDivElement>(null);
   const fine = useIsFinePointer();
   const reduced = usePrefersReducedMotion();
   const frame = useRef(0);
   const target = useRef({ x: 0, y: 0 });
+  const canTilt = fine && !reduced && max > 0;
 
   const reset = () => {
     if (frame.current) window.cancelAnimationFrame(frame.current);
@@ -31,13 +40,13 @@ export function TiltCard({ children, className, wrapperClassName, max = 12 }: Ti
       <div
         ref={ref}
         data-cursor="hover"
-        className={cn("relative will-change-transform", className)}
+        className={cn("relative will-change-transform", !canTilt && pressFeedback && "app-press", className)}
         style={{
           transformStyle: "preserve-3d",
           transition: "transform 160ms cubic-bezier(0.33, 1, 0.68, 1)",
         }}
         onPointerMove={(event) => {
-          if (!fine || reduced || max <= 0 || !ref.current) return;
+          if (!canTilt || !ref.current) return;
           const rect = event.currentTarget.getBoundingClientRect();
           target.current.x = (event.clientX - rect.left) / rect.width - 0.5;
           target.current.y = (event.clientY - rect.top) / rect.height - 0.5;
@@ -54,6 +63,12 @@ export function TiltCard({ children, className, wrapperClassName, max = 12 }: Ti
           });
         }}
         onPointerLeave={reset}
+        onPointerDown={() => {
+          if (canTilt || reduced || !pressFeedback || !ref.current) return;
+          ref.current.style.transform = "translate3d(0,0,0) scale(0.985)";
+        }}
+        onPointerUp={reset}
+        onPointerCancel={reset}
       >
         {children}
         <div ref={shine} className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-150" />

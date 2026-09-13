@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { useExperience } from "@/components/providers/ExperienceProvider";
-import { useIsMobile, usePrefersReducedMotion } from "@/hooks/useMedia";
+import { useIsMobile, useNativeScrollExperience, usePrefersReducedMotion } from "@/hooks/useMedia";
 
 interface Petal {
   id: string;
@@ -29,14 +29,17 @@ function makePetals(count: number, prefix: string): Petal[] {
 export function PetalSystem() {
   const { opened, petalBurst } = useExperience();
   const mobile = useIsMobile();
+  const nativeScroll = useNativeScrollExperience();
   const reduced = usePrefersReducedMotion();
 
   const petals = useMemo(() => {
     if (!opened) return makePetals(mobile ? 2 : 3, "a");
-    const ambient = makePetals(mobile ? 3 : 6, "a");
-    const burst = petalBurst ? makePetals(mobile ? 6 : 10, `b${petalBurst}`) : [];
+    const ambientCount = mobile ? 2 : nativeScroll ? 3 : 6;
+    const burstCount = mobile ? 5 : nativeScroll ? 7 : 10;
+    const ambient = makePetals(ambientCount, "a");
+    const burst = petalBurst ? makePetals(burstCount, `b${petalBurst}`) : [];
     return [...ambient, ...burst];
-  }, [mobile, opened, petalBurst]);
+  }, [mobile, nativeScroll, opened, petalBurst]);
 
   if (reduced) return null;
 
@@ -45,7 +48,7 @@ export function PetalSystem() {
       {petals.map((petal) => (
         <span
           key={petal.id}
-          className="absolute top-[-8vh] rounded-[60%_40%_60%_40%] opacity-55 will-change-transform"
+          className="absolute top-[-8vh] rounded-[60%_40%_60%_40%] opacity-50 will-change-transform sm:opacity-55"
           style={{
             left: `${petal.left}%`,
             width: petal.size,

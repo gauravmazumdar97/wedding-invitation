@@ -3,6 +3,10 @@
 import { useEffect, type RefObject } from "react";
 import { useIsFinePointer, useIsMobile, usePrefersReducedMotion } from "@/hooks/useMedia";
 
+/**
+ * Desktop: pointer-driven 3D tilt.
+ * Touch: soft ambient drift so depth stays present without hover or motion permission prompts.
+ */
 export function useSceneTilt(
   ref: RefObject<HTMLElement | null>,
   options?: { intensity?: number; enabled?: boolean; depth?: number },
@@ -11,7 +15,7 @@ export function useSceneTilt(
   const mobile = useIsMobile();
   const reduced = usePrefersReducedMotion();
   const baseIntensity = options?.intensity ?? 14;
-  const enabled = (options?.enabled ?? true) && fine && !reduced && !mobile;
+  const enabled = (options?.enabled ?? true) && !reduced;
   const depth = options?.depth ?? 24;
 
   useEffect(() => {
@@ -23,21 +27,24 @@ export function useSceneTilt(
     let currentX = 0;
     let currentY = 0;
     let frame = 0;
+    let ambientFrame = 0;
     let running = true;
-    const intensity = Math.min(baseIntensity, 16);
+    const intensity = fine
+      ? Math.min(baseIntensity, 16)
+      : Math.min(baseIntensity * (mobile ? 0.32 : 0.4), 6.5);
+    const depthScale = fine ? depth : depth * 0.4;
+    const smoothing = fine ? 0.16 : 0.08;
 
     const tick = () => {
       frame = 0;
       if (!running) return;
-      currentX += (targetX - currentX) * 0.16;
-      currentY += (targetY - currentY) * 0.16;
-      const dx = targetX - currentX;
-      const dy = targetY - currentY;
-      if (Math.abs(dx) < 0.0008 && Math.abs(dy) < 0.0008) {
+      currentX += (targetX - currentX) * smoothing;
+      currentY += (targetY - currentY) * smoothing;
+      if (Math.abs(targetX - currentX) < 0.0008 && Math.abs(targetY - currentY) < 0.0008) {
         currentX = targetX;
         currentY = targetY;
       }
-      const z = Math.hypot(currentX, currentY) * depth;
+      const z = Math.hypot(currentX, currentY) * depthScale;
       el.style.transform = `translate3d(0,0,${z.toFixed(2)}px) rotateX(${(-currentY * intensity).toFixed(2)}deg) rotateY(${(currentX * intensity).toFixed(2)}deg)`;
       if (currentX !== targetX || currentY !== targetY) {
         frame = window.requestAnimationFrame(tick);
@@ -48,26 +55,47 @@ export function useSceneTilt(
       if (!frame && running) frame = window.requestAnimationFrame(tick);
     };
 
-    const onMove = (event: PointerEvent) => {
+    const onPointerMove = (event: PointerEvent) => {
       targetX = (event.clientX / window.innerWidth - 0.5) * 2;
       targetY = (event.clientY / window.innerHeight - 0.5) * 2;
       schedule();
     };
 
-    const onVisibility = () => {
-      running = document.visibilityState === "visible";
-      if (running) schedule();
+    const ambient = (now: number) => {
+      if (!running) return;
+      const t = now * 0.00032;
+      targetX = Math.sin(t) * 0.26;
+      targetY = Math.cos(t * 0.82) * 0.16;
+      schedule();
+      ambientFrame = window.requestAnimationFrame(ambient);
     };
 
-    window.addEventListener("pointermove", onMove, { passive: true });
+    const onVisibility = () => {
+      running = document.visibilityState === "visible";
+      if (running) {
+        schedule();
+        if (!fine && !ambientFrame) ambientFrame = window.requestAnimationFrame(ambient);
+      } else if (ambientFrame) {
+        window.cancelAnimationFrame(ambientFrame);
+        ambientFrame = 0;
+      }
+    };
+
+    if (fine) {
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+    } else {
+      ambientFrame = window.requestAnimationFrame(ambient);
+    }
+
     document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
       running = false;
-      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointermove", onPointerMove);
       document.removeEventListener("visibilitychange", onVisibility);
       if (frame) window.cancelAnimationFrame(frame);
+      if (ambientFrame) window.cancelAnimationFrame(ambientFrame);
       el.style.transform = "";
     };
-  }, [ref, baseIntensity, enabled, depth]);
+  }, [ref, baseIntensity, enabled, depth, fine, mobile]);
 }

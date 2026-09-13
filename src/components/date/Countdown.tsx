@@ -57,8 +57,8 @@ function subscribe(onStoreChange: () => void): () => void {
 
 function Cell({ value, label }: { value: number; label: string }) {
   return (
-    <div className="min-w-[4.5rem] text-center">
-      <p key={value} className="font-serif text-5xl text-[var(--color-sindoor)] md:text-7xl">
+    <div className="min-w-[3.75rem] text-center sm:min-w-[4.5rem]">
+      <p key={value} className="font-serif text-[2.5rem] text-[var(--color-sindoor)] sm:text-5xl md:text-7xl">
         {String(value).padStart(2, "0")}
       </p>
       <p className="mt-2 font-serif text-[0.65rem] uppercase tracking-[0.28em] text-[var(--color-muted)]">{label}</p>
@@ -71,19 +71,19 @@ export function Countdown() {
   const time = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   return (
-    <section className="section-cv silk-texture px-6 py-24 text-center">
+    <section className="section-cv section-pad silk-texture text-center">
       <DepthStage intensity={0.85}>
         {time.past ? (
           <>
-            <p className="font-bn text-2xl text-[var(--color-sindoor)]">{wedding.countdown.afterBn}</p>
-            <p className="mt-4 font-serif text-3xl italic">{wedding.countdown.after}</p>
+            <p className="font-bn text-xl text-[var(--color-sindoor)] sm:text-2xl">{wedding.countdown.afterBn}</p>
+            <p className="mt-4 font-serif text-2xl italic sm:text-3xl">{wedding.countdown.after}</p>
           </>
         ) : (
           <>
-            <p className="font-serif text-xl italic md:text-2xl">
+            <p className="font-serif text-lg italic sm:text-xl md:text-2xl">
               {language === "bn" ? wedding.countdown.beforeBn : wedding.countdown.before}
             </p>
-            <div className="mt-10 flex flex-wrap items-start justify-center gap-8">
+            <div className="mt-8 flex flex-wrap items-start justify-center gap-5 sm:mt-10 sm:gap-8">
               <Cell value={time.days} label="Days" />
               <Cell value={time.hours} label="Hours" />
               <Cell value={time.minutes} label="Minutes" />

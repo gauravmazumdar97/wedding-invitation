@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { eventsForGuest, wedding } from "@/config/wedding";
 import { AlpanaIllustration } from "@/components/art/AlpanaIllustration";
 import { MagneticButton } from "@/components/motion/MagneticButton";
@@ -26,6 +26,20 @@ export function RSVPExperience() {
     () => Array.from({ length: guest.allowedGuests }, (_, index) => index + 1),
     [guest.allowedGuests],
   );
+
+  useEffect(() => {
+    document.body.classList.toggle("rsvp-locked", rsvpOpen);
+    return () => document.body.classList.remove("rsvp-locked");
+  }, [rsvpOpen]);
+
+  useEffect(() => {
+    if (!rsvpOpen) return undefined;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setRsvpOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [rsvpOpen, setRsvpOpen]);
 
   const toggleEvent = (id: string) => {
     setEvents((current) => (current.includes(id) ? current.filter((item) => item !== id) : [...current, id]));
@@ -76,24 +90,33 @@ export function RSVPExperience() {
   };
 
   return (
-    <section id="rsvp" className="bg-[var(--color-ivory)] px-6 py-24">
+    <section id="rsvp" className="section-pad bg-[var(--color-ivory)]">
       <div className="mx-auto max-w-2xl text-center">
-        <p className="font-bn text-xl text-[var(--color-sindoor)]">উত্তর দিন</p>
-        <h2 className="mt-3 font-serif text-5xl md:text-7xl">Will you join us?</h2>
+        <p className="font-bn text-lg text-[var(--color-sindoor)] sm:text-xl">উত্তর দিন</p>
+        <h2 className="mt-3 font-serif text-[2.5rem] leading-tight sm:text-5xl md:text-7xl">Will you join us?</h2>
         <p className="mt-4 font-serif italic">{guest.guestName} · up to {guest.allowedGuests}</p>
         <MagneticButton
           type="button"
           onClick={() => setRsvpOpen(true)}
-          className="mt-8 min-h-12 border border-[var(--color-sindoor)] bg-[var(--color-sindoor)] px-8 font-serif tracking-[0.22em] text-[var(--color-ivory)]"
+          className="mt-8 min-h-[var(--touch-min)] border border-[var(--color-sindoor)] bg-[var(--color-sindoor)] px-8 font-serif tracking-[0.22em] text-[var(--color-ivory)]"
         >
           {done ? "Edit RSVP" : "RSVP"}
         </MagneticButton>
       </div>
 
       {rsvpOpen ? (
-        <div className="fixed inset-0 z-[75] overflow-y-auto bg-[rgba(42,18,22,0.55)] px-4 py-8">
-          <div className="paper-grain silk-texture mx-auto max-w-lg rounded-[2px] p-6 md:p-8">
-            <button type="button" className="mb-4 font-serif text-xs tracking-[0.25em]" onClick={() => setRsvpOpen(false)}>
+        <div
+          className="fixed inset-0 z-[75] overflow-y-auto overscroll-contain bg-[rgba(42,18,22,0.55)] px-[var(--page-x)] pb-[max(2rem,calc(var(--safe-bottom)+1rem))] pt-[max(2rem,calc(var(--safe-top)+1rem))]"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setRsvpOpen(false);
+          }}
+        >
+          <div className="paper-grain silk-texture mx-auto max-w-lg rounded-[2px] p-5 sm:p-6 md:p-8">
+            <button
+              type="button"
+              className="app-press mb-4 min-h-[var(--touch-min)] font-serif text-xs tracking-[0.25em]"
+              onClick={() => setRsvpOpen(false)}
+            >
               Close
             </button>
 
@@ -106,7 +129,7 @@ export function RSVPExperience() {
                 <p className="mt-3 font-serif text-xl italic">
                   {status === "accepted" ? wedding.rsvp.thanks : wedding.rsvp.declineThanks}
                 </p>
-                <button type="button" className="mt-8 font-serif text-sm tracking-[0.2em] underline" onClick={() => setDone(false)}>
+                <button type="button" className="app-press mt-8 min-h-[var(--touch-min)] font-serif text-sm tracking-[0.2em] underline" onClick={() => setDone(false)}>
                   Change response
                 </button>
               </div>
@@ -121,11 +144,11 @@ export function RSVPExperience() {
                 <fieldset>
                   <legend className="font-serif text-lg">Will you join us?</legend>
                   <div className="mt-3 grid gap-3">
-                    <label className="flex min-h-12 items-center gap-3 border border-[var(--color-gold)]/40 px-4">
+                    <label className="app-press flex min-h-[var(--touch-min)] items-center gap-3 border border-[var(--color-gold)]/40 px-4">
                       <input type="radio" name="status" checked={status === "accepted"} onChange={() => setStatus("accepted")} />
                       {wedding.rsvp.acceptLabel}
                     </label>
-                    <label className="flex min-h-12 items-center gap-3 border border-[var(--color-gold)]/40 px-4">
+                    <label className="app-press flex min-h-[var(--touch-min)] items-center gap-3 border border-[var(--color-gold)]/40 px-4">
                       <input type="radio" name="status" checked={status === "declined"} onChange={() => setStatus("declined")} />
                       {wedding.rsvp.declineLabel}
                     </label>
@@ -137,7 +160,7 @@ export function RSVPExperience() {
                     <label className="block">
                       <span className="font-serif">Number attending</span>
                       <select
-                        className="mt-2 min-h-12 w-full border border-[var(--color-gold)]/40 bg-transparent px-3"
+                        className="mt-2 min-h-[var(--touch-min)] w-full border border-[var(--color-gold)]/40 bg-transparent px-3"
                         value={count}
                         onChange={(event) => setCount(Number(event.target.value))}
                       >
@@ -153,7 +176,7 @@ export function RSVPExperience() {
                       <legend className="font-serif">Events</legend>
                       <div className="mt-3 space-y-2">
                         {invited.map((event) => (
-                          <label key={event.id} className="flex min-h-11 items-center gap-3">
+                          <label key={event.id} className="flex min-h-[var(--touch-min)] items-center gap-3">
                             <input
                               type="checkbox"
                               checked={events.includes(event.id)}
@@ -169,21 +192,21 @@ export function RSVPExperience() {
                       <legend className="font-serif">Dietary preference</legend>
                       <div className="mt-3 space-y-2">
                         {(["vegetarian", "non-vegetarian", "other"] as DietaryPreference[]).map((option) => (
-                          <label key={option} className="flex min-h-11 items-center gap-3 capitalize">
+                          <label key={option} className="flex min-h-[var(--touch-min)] items-center gap-3 capitalize">
                             <input type="radio" name="diet" checked={dietary === option} onChange={() => setDietary(option)} />
                             {option.replace("-", " ")}
                           </label>
                         ))}
                       </div>
                       <input
-                        className="mt-3 min-h-11 w-full border border-[var(--color-gold)]/40 bg-transparent px-3"
+                        className="mt-3 min-h-[var(--touch-min)] w-full border border-[var(--color-gold)]/40 bg-transparent px-3"
                         placeholder="Notes"
                         value={dietaryNote}
                         onChange={(event) => setDietaryNote(event.target.value)}
                       />
                     </fieldset>
 
-                    <label className="flex min-h-11 items-center gap-3">
+                    <label className="flex min-h-[var(--touch-min)] items-center gap-3">
                       <input type="checkbox" checked={travelHelp} onChange={(event) => setTravelHelp(event.target.checked)} />
                       Travel or stay help needed
                     </label>
@@ -211,7 +234,7 @@ export function RSVPExperience() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="min-h-12 w-full bg-[var(--color-sindoor)] font-serif tracking-[0.22em] text-[var(--color-ivory)]"
+                  className="app-press min-h-[var(--touch-min)] w-full bg-[var(--color-sindoor)] font-serif tracking-[0.22em] text-[var(--color-ivory)]"
                 >
                   {saving ? "Saving..." : "Submit RSVP"}
                 </button>

@@ -39,14 +39,14 @@ export function MusicControl() {
   if (!opened) return null;
 
   return (
-    <div className="fixed bottom-5 left-5 z-50">
+    <div className="safe-fixed-bl fixed z-50">
       <audio ref={audioRef} src={wedding.music.src} loop preload="none" />
       <button
         type="button"
         onClick={() => setMusicOn(!musicOn)}
         aria-pressed={musicOn}
         aria-label={musicOn ? "Pause music" : "Play music"}
-        className="min-h-11 border border-[var(--color-gold)]/50 bg-[var(--color-paper)] px-4 py-2 font-serif text-[0.65rem] tracking-[0.28em] text-[var(--color-ink)]"
+        className="app-press inline-flex min-h-[var(--touch-min)] items-center border border-[var(--color-gold)]/50 bg-[var(--color-paper)]/92 px-4 py-2 font-serif text-[0.65rem] tracking-[0.28em] text-[var(--color-ink)] backdrop-blur-sm"
       >
         {musicOn ? "Sound on" : "Sound off"}
       </button>

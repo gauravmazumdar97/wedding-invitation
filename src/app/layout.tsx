@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Outfit, Tiro_Bangla } from "next/font/google";
 import { wedding } from "@/config/wedding";
 import "./globals.css";
@@ -23,6 +23,16 @@ const sans = Outfit({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f6f0e6" },
+    { media: "(prefers-color-scheme: dark)", color: "#3f151c" },
+  ],
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(wedding.social.siteUrl),
   title: {
@@ -30,6 +40,14 @@ export const metadata: Metadata = {
     template: `%s · ${wedding.social.title}`,
   },
   description: `${wedding.social.descriptionBn} · ${wedding.social.description}`,
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: wedding.social.title,
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     title: `${wedding.social.title} · ${wedding.date.display}`,
     description: wedding.social.descriptionBn,

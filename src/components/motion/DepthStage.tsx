@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { cn } from "@/lib/cn";
-import { useIsMobile, usePrefersReducedMotion } from "@/hooks/useMedia";
+import { useNativeScrollExperience, usePrefersReducedMotion } from "@/hooks/useMedia";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -17,29 +17,29 @@ interface DepthStageProps {
   intensity?: number;
 }
 
-/** Soft scroll entrance - transform/opacity only, lighter on mobile. */
+/** Soft scroll entrance - transform/opacity only, lighter on touch and narrow screens. */
 export function DepthStage({ children, className, intensity = 1 }: DepthStageProps) {
   const root = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
-  const mobile = useIsMobile();
+  const nativeScroll = useNativeScrollExperience();
 
   useGSAP(
     () => {
       if (!root.current || !stage.current || reduced) return;
-      if (mobile) {
+      if (nativeScroll) {
         gsap.fromTo(
           stage.current,
-          { y: 28, opacity: 0.4 },
+          { y: 22, opacity: 0.45 },
           {
             y: 0,
             opacity: 1,
             ease: "none",
             scrollTrigger: {
               trigger: root.current,
-              start: "top 88%",
-              end: "top 55%",
-              scrub: 0.35,
+              start: "top 90%",
+              end: "top 58%",
+              scrub: 0.28,
             },
           },
         );
@@ -69,11 +69,11 @@ export function DepthStage({ children, className, intensity = 1 }: DepthStagePro
         },
       );
     },
-    { scope: root, dependencies: [reduced, intensity, mobile] },
+    { scope: root, dependencies: [reduced, intensity, nativeScroll] },
   );
 
   return (
-    <div ref={root} className={cn(mobile ? "" : "scene-3d", className)}>
+    <div ref={root} className={cn(nativeScroll ? "" : "scene-3d", className)}>
       <div ref={stage} className="will-change-transform">
         {children}
       </div>

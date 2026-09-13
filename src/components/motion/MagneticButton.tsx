@@ -8,17 +8,25 @@ interface MagneticButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
 }
 
-export function MagneticButton({ children, className, onPointerMove, onPointerLeave, ...props }: MagneticButtonProps) {
+export function MagneticButton({ children, className, onPointerMove, onPointerLeave, onPointerDown, onPointerUp, ...props }: MagneticButtonProps) {
   const ref = useRef<HTMLButtonElement>(null);
   const fine = useIsFinePointer();
   const reduced = usePrefersReducedMotion();
   const frame = useRef(0);
   const target = useRef({ x: 0, y: 0 });
 
+  const clear = () => {
+    if (frame.current) {
+      window.cancelAnimationFrame(frame.current);
+      frame.current = 0;
+    }
+    if (ref.current) ref.current.style.transform = "translate3d(0,0,0) scale(1)";
+  };
+
   return (
     <button
       ref={ref}
-      className={cn("magnetic-btn", className)}
+      className={cn("magnetic-btn app-press", className)}
       onPointerMove={(event) => {
         onPointerMove?.(event);
         if (!fine || reduced || !ref.current) return;
@@ -33,13 +41,18 @@ export function MagneticButton({ children, className, onPointerMove, onPointerLe
           }
         });
       }}
+      onPointerDown={(event) => {
+        onPointerDown?.(event);
+        if (fine || reduced || !ref.current) return;
+        ref.current.style.transform = "translate3d(0,0,0) scale(0.97)";
+      }}
+      onPointerUp={(event) => {
+        onPointerUp?.(event);
+        if (!fine) clear();
+      }}
       onPointerLeave={(event) => {
         onPointerLeave?.(event);
-        if (frame.current) {
-          window.cancelAnimationFrame(frame.current);
-          frame.current = 0;
-        }
-        if (ref.current) ref.current.style.transform = "translate3d(0,0,0)";
+        clear();
       }}
       {...props}
     >

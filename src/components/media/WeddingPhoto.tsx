@@ -8,6 +8,7 @@ interface WeddingPhotoProps {
   label?: string;
   framed?: boolean;
   priority?: boolean;
+  sizes?: string;
 }
 
 export function WeddingPhoto({
@@ -17,6 +18,7 @@ export function WeddingPhoto({
   label,
   framed = false,
   priority = false,
+  sizes = "(max-width: 767px) 100vw, (max-width: 1023px) 80vw, 1200px",
 }: WeddingPhotoProps) {
   const image = (
     <figure className={cn("relative h-full w-full overflow-hidden bg-[var(--color-beige)]", !framed && className)}>
@@ -27,6 +29,7 @@ export function WeddingPhoto({
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         fetchPriority={priority ? "high" : "auto"}
+        sizes={sizes}
         className="h-full w-full object-cover"
       />
       {label ? (
@@ -41,10 +44,10 @@ export function WeddingPhoto({
 
   return (
     <div className={cn("photo-frame relative", className)}>
-      <CornerAlpana className="pointer-events-none absolute left-1 top-1 z-10 h-8 w-8" />
-      <CornerAlpana className="pointer-events-none absolute right-1 top-1 z-10 h-8 w-8 rotate-90" />
-      <CornerAlpana className="pointer-events-none absolute bottom-1 left-1 z-10 h-8 w-8 -rotate-90" />
-      <CornerAlpana className="pointer-events-none absolute bottom-1 right-1 z-10 h-8 w-8 rotate-180" />
+      <CornerAlpana className="pointer-events-none absolute left-1 top-1 z-10 h-7 w-7 sm:h-8 sm:w-8" />
+      <CornerAlpana className="pointer-events-none absolute right-1 top-1 z-10 h-7 w-7 rotate-90 sm:h-8 sm:w-8" />
+      <CornerAlpana className="pointer-events-none absolute bottom-1 left-1 z-10 h-7 w-7 -rotate-90 sm:h-8 sm:w-8" />
+      <CornerAlpana className="pointer-events-none absolute bottom-1 right-1 z-10 h-7 w-7 rotate-180 sm:h-8 sm:w-8" />
       {image}
     </div>
   );

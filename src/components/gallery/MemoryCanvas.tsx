@@ -5,7 +5,7 @@ import { wedding } from "@/config/wedding";
 import { WeddingPhoto } from "@/components/media/WeddingPhoto";
 import { TiltCard } from "@/components/motion/TiltCard";
 import { useExperience } from "@/components/providers/ExperienceProvider";
-import { useIsMobile } from "@/hooks/useMedia";
+import { useNativeScrollExperience } from "@/hooks/useMedia";
 
 const layout = [
   { x: 8, y: 12, rotate: -6, z: 10 },
@@ -20,7 +20,7 @@ const layout = [
 
 export function MemoryCanvas() {
   const { language } = useExperience();
-  const mobile = useIsMobile();
+  const nativeScroll = useNativeScrollExperience();
   const [active, setActive] = useState<number | null>(null);
   const table = useRef<HTMLDivElement>(null);
   const drag = useRef<{ x: number; y: number; ox: number; oy: number } | null>(null);
@@ -33,7 +33,7 @@ export function MemoryCanvas() {
   };
 
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (mobile) return;
+    if (nativeScroll) return;
     drag.current = { x: event.clientX, y: event.clientY, ox: offset.current.x, oy: offset.current.y };
     event.currentTarget.setPointerCapture(event.pointerId);
   };
@@ -54,15 +54,25 @@ export function MemoryCanvas() {
     drag.current = null;
   };
 
-  if (mobile) {
+  if (nativeScroll) {
     return (
-      <section id="gallery" className="section-cv bg-[var(--color-paper)] px-6 py-20">
-        <h2 className="text-center font-serif text-5xl text-[var(--color-sindoor)]">Memories</h2>
-        <div className="hidden-scrollbar mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4">
+      <section id="gallery" className="section-cv section-pad bg-[var(--color-paper)]">
+        <p className="text-center font-bn text-lg text-[var(--color-sindoor)] sm:text-xl">স্মৃতির বাক্স</p>
+        <h2 className="mt-2 text-center font-serif text-[2.5rem] leading-tight text-[var(--color-sindoor)] sm:text-5xl">
+          Memories
+        </h2>
+        <p className="mt-3 text-center font-serif text-sm italic text-[var(--color-muted)]">Swipe the prints.</p>
+        <div className="touch-scroll-x hidden-scrollbar mt-8 flex gap-4 pb-2 sm:mt-10">
           {wedding.photos.gallery.map((photo) => (
-            <figure key={photo.src} className="w-[78vw] shrink-0 snap-center">
-              <WeddingPhoto framed src={photo.src} alt={photo.caption} className="aspect-[3/4]" />
-              <figcaption className="mt-3 font-serif italic">
+            <figure key={photo.src} className="w-[78vw] max-w-[22rem] shrink-0 snap-center sm:w-[58vw]">
+              <WeddingPhoto
+                framed
+                src={photo.src}
+                alt={photo.caption}
+                className="aspect-[3/4]"
+                sizes="(max-width: 767px) 78vw, 58vw"
+              />
+              <figcaption className="mt-3 font-serif text-sm italic sm:text-base">
                 {language === "bn" ? photo.captionBn : photo.caption}
               </figcaption>
             </figure>
