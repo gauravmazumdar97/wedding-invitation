@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useExperience } from "@/components/providers/ExperienceProvider";
 import { useIsMobile, useNativeScrollExperience, usePrefersReducedMotion } from "@/hooks/useMedia";
+import { subscribeScroll } from "@/lib/scroll-bus";
 
 interface Petal {
   id: string;
@@ -22,7 +23,7 @@ function makePetals(count: number, prefix: string): Petal[] {
     duration: 12 + (index % 4) * 2.5,
     size: 7 + (index % 3) * 3,
     rotate: (index * 29) % 360,
-    hue: index % 3 === 0 ? "#8f1d22" : index % 3 === 1 ? "#c98986" : "#c4a574",
+    hue: index % 3 === 0 ? "#e85a4f" : index % 3 === 1 ? "#e8a399" : "#d9b08a",
   }));
 }
 
@@ -34,17 +35,29 @@ export function PetalSystem() {
 
   const petals = useMemo(() => {
     if (!opened) return makePetals(mobile ? 2 : 3, "a");
-    const ambientCount = mobile ? 2 : nativeScroll ? 3 : 6;
-    const burstCount = mobile ? 5 : nativeScroll ? 7 : 10;
+    const ambientCount = mobile ? 5 : nativeScroll ? 7 : 11;
+    const burstCount = mobile ? 8 : nativeScroll ? 10 : 14;
     const ambient = makePetals(ambientCount, "a");
     const burst = petalBurst ? makePetals(burstCount, `b${petalBurst}`) : [];
     return [...ambient, ...burst];
   }, [mobile, nativeScroll, opened, petalBurst]);
 
+  const layer = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (reduced || !layer.current) return undefined;
+    const node = layer.current;
+    return subscribeScroll(({ velocity, direction }) => {
+      const drift = Math.max(-18, Math.min(18, -velocity * 0.35));
+      node.style.transform = `translate3d(0, ${drift.toFixed(1)}px, 0)`;
+      node.style.opacity = direction < 0 ? "0.72" : "1";
+    });
+  }, [reduced]);
+
   if (reduced) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[40] overflow-hidden" aria-hidden>
+    <div ref={layer} className="pointer-events-none fixed inset-0 z-[40] overflow-hidden will-change-transform" aria-hidden>
       {petals.map((petal) => (
         <span
           key={petal.id}

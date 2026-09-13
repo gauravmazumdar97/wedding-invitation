@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { CornerAlpana } from "@/components/art/Ornaments";
 
@@ -22,15 +23,13 @@ export function WeddingPhoto({
 }: WeddingPhotoProps) {
   const image = (
     <figure className={cn("relative h-full w-full overflow-hidden bg-[var(--color-beige)]", !framed && className)}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={src}
         alt={alt}
-        loading={priority ? "eager" : "lazy"}
-        decoding="async"
-        fetchPriority={priority ? "high" : "auto"}
+        fill
+        priority={priority}
         sizes={sizes}
-        className="h-full w-full object-cover"
+        className="object-cover"
       />
       {label ? (
         <figcaption className="pointer-events-none absolute bottom-3 left-3 font-serif text-xs tracking-[0.22em] text-white/80">

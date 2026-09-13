@@ -1,49 +1,48 @@
 "use client";
 
 import { wedding } from "@/config/wedding";
-import { Diya, KanthaBorder } from "@/components/art/BengaliMotifs";
-import { useExperience } from "@/components/providers/ExperienceProvider";
+import { FestivalHeading } from "@/components/ui/FestivalHeading";
+import { DepthStage } from "@/components/motion/DepthStage";
+import { TiltCard } from "@/components/motion/TiltCard";
+
+function familyLine(members: { name: string }[]) {
+  const last = members[0]?.name.split(" ").slice(-1)[0] ?? "";
+  const firsts = members.map((member) => member.name.replace(` ${last}`, "").trim());
+  if (firsts.length >= 2) {
+    return `${firsts[0]} & ${firsts[1]} ${last}`;
+  }
+  return members.map((member) => member.name).join(" & ");
+}
 
 export function FamilyBlessings() {
-  const { language } = useExperience();
-
   return (
-    <section className="section-pad bg-[var(--color-ivory)] md:py-[var(--section-y-lg)]">
-      <div className="mx-auto max-w-4xl text-center">
-        <Diya className="mx-auto mb-4 h-9 w-12 sm:mb-5 sm:h-10 sm:w-14" />
-        <p className="font-bn text-lg text-[var(--color-sindoor)] sm:text-xl">{wedding.families.introBn}</p>
-        <h2 className="mt-3 font-serif text-[2.15rem] leading-tight sm:text-4xl md:text-6xl">{wedding.families.intro}</h2>
-        <p className="mt-4 font-serif italic text-[var(--color-muted)]">আশীর্বাদ</p>
-        <KanthaBorder className="mx-auto mt-6 w-full max-w-sm" />
-      </div>
-      <div className="mx-auto mt-12 grid max-w-5xl gap-12 sm:mt-16 md:grid-cols-2 md:gap-16">
-        <article className="text-center md:text-left">
-          <p className="font-serif text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">{"Bride's family"}</p>
-          <ul className="mt-5 space-y-4 sm:mt-6 sm:space-y-5">
-            {wedding.families.bride.map((member) => (
-              <li key={member.name}>
-                <p className="font-serif text-xl sm:text-2xl">{member.name}</p>
-                <p className="text-sm text-[var(--color-muted)]">
-                  {language === "bn" ? member.relationBn : member.relation}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </article>
-        <article className="text-center md:text-left">
-          <p className="font-serif text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">{"Groom's family"}</p>
-          <ul className="mt-5 space-y-4 sm:mt-6 sm:space-y-5">
-            {wedding.families.groom.map((member) => (
-              <li key={member.name}>
-                <p className="font-serif text-xl sm:text-2xl">{member.name}</p>
-                <p className="text-sm text-[var(--color-muted)]">
-                  {language === "bn" ? member.relationBn : member.relation}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </article>
-      </div>
+    <section className="section-pad">
+      <DepthStage>
+        <FestivalHeading kicker="With blessings from" title="Our Families" />
+        <div className="relative mx-auto mt-10 grid max-w-3xl gap-7 text-center sm:mt-12 md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-6">
+          <TiltCard max={8} pressFeedback>
+          <article className="festival-card px-5 py-7">
+            <p className="festival-kicker">Bride's side</p>
+            <p className="mt-3 font-serif text-[1.45rem] text-[var(--color-navy)] sm:mt-4 sm:text-3xl">
+              {familyLine(wedding.families.bride)}
+            </p>
+            <p className="mt-2 font-serif italic text-[var(--color-muted)]">Parents of the Bride</p>
+          </article>
+          </TiltCard>
+          <p className="font-serif text-3xl italic text-[var(--color-coral)] sm:text-4xl" aria-hidden>
+            &
+          </p>
+          <TiltCard max={8} pressFeedback>
+          <article className="festival-card px-5 py-7">
+            <p className="festival-kicker">Groom's side</p>
+            <p className="mt-3 font-serif text-[1.45rem] text-[var(--color-navy)] sm:mt-4 sm:text-3xl">
+              {familyLine(wedding.families.groom)}
+            </p>
+            <p className="mt-2 font-serif italic text-[var(--color-muted)]">Parents of the Groom</p>
+          </article>
+          </TiltCard>
+        </div>
+      </DepthStage>
     </section>
   );
 }

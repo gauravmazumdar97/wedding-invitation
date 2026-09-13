@@ -27,7 +27,7 @@ export type Atmosphere =
 
 export type DietaryPreference = "vegetarian" | "non-vegetarian" | "other";
 
-export type RsvpStatus = "accepted" | "declined" | "pending";
+export type RsvpStatus = "accepted" | "maybe" | "declined" | "pending";
 
 export interface Person {
   firstName: string;
@@ -163,6 +163,11 @@ export interface WeddingConfig {
     from: string;
     text: string;
     textBn: string;
+    video?: string;
+  };
+  quote: {
+    text: string;
+    textBn: string;
   };
   countdown: {
     before: string;
@@ -189,11 +194,16 @@ export interface WeddingConfig {
   };
   rsvp: {
     acceptLabel: string;
+    maybeLabel: string;
     declineLabel: string;
     thanks: string;
     thanksBn: string;
+    maybeThanks: string;
+    maybeThanksBn: string;
     declineThanks: string;
     declineThanksBn: string;
+    byline: string;
+    hashtag: string;
   };
   copy: {
     openInvitation: string;

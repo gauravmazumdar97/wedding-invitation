@@ -5,46 +5,52 @@
   --font-bengali: "Tiro Bangla", "Noto Serif Bengali", serif;
   --font-sans: "Outfit", "Segoe UI", sans-serif;
 
-  --color-ivory: #f6f0e6;
-  --color-paper: #fbf7f0;
-  --color-sindoor: #8f1d22;
-  --color-vermilion: #c23a2b;
-  --color-burgundy: #3f151c;
-  --color-maroon: #6b2d3c;
-  --color-terracotta: #b85c38;
-  --color-gold: #c4a574;
-  --color-candle: #e8c97a;
-  --color-beige: #e8dcc8;
-  --color-ink: #2a1b18;
-  --color-muted: #6d5a4e;
+  --color-ivory: #fbf6ee;
+  --color-paper: #fffaf4;
+  --color-sindoor: #e85a4f;
+  --color-vermilion: #e85a4f;
+  --color-burgundy: #2a3344;
+  --color-maroon: #6b4a46;
+  --color-terracotta: #e85a4f;
+  --color-gold: #d9b08a;
+  --color-candle: #f0c9a8;
+  --color-beige: #f3e6d6;
+  --color-ink: #2a3344;
+  --color-muted: #7a726b;
   --color-leaf: #5c6b4a;
-  --color-indigo: #1c2430;
-  --color-rose: #c98986;
+  --color-indigo: #2a3344;
+  --color-rose: #e8a399;
+  --color-coral: #e85a4f;
+  --color-navy: #2a3344;
+  --color-blush: #f8e4d6;
 
   --ease-ceremonial: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-silk: cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 :root {
-  --bg: #f6f0e6;
-  --fg: #2a1b18;
+  --bg: #fbf6ee;
+  --fg: #2a3344;
   --atmosphere: ivory;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
-  --page-x: max(1.15rem, env(safe-area-inset-left, 0px));
-  --page-x-end: max(1.15rem, env(safe-area-inset-right, 0px));
-  --section-y: clamp(3.25rem, 9vw, 5rem);
-  --section-y-lg: clamp(4.5rem, 11vw, 8.5rem);
+  --page-x: calc(1.25rem + env(safe-area-inset-left, 0px));
+  --page-x-end: calc(1.25rem + env(safe-area-inset-right, 0px));
+  --section-y: clamp(3.25rem, 7vw, 5.5rem);
+  --section-y-lg: clamp(4rem, 9vw, 7rem);
   --touch-min: 2.75rem;
-  --app-radius: 2px;
+  --app-radius: 1.35rem;
+  --header-h: 3.35rem;
 }
 
 html {
   scroll-behavior: auto;
+  scroll-padding-top: calc(var(--header-h) + var(--safe-top));
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 html,
@@ -56,21 +62,26 @@ body {
 
 body {
   min-height: 100dvh;
-  overflow-x: hidden;
-  overscroll-behavior-y: none;
+  overflow-x: clip;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(248, 214, 196, 0.7), transparent 48%),
+    linear-gradient(180deg, #fbf6ee 0%, #f6eadc 100%);
   -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
+  touch-action: pan-y;
 }
 
 body.menu-locked,
-body.rsvp-locked {
+body.rsvp-locked,
+body.lightbox-locked {
   overflow: hidden;
   touch-action: none;
 }
 
 ::selection {
-  background: #8f1d22;
-  color: #f6f0e6;
+  background: #e85a4f;
+  color: #fffaf4;
 }
 
 .font-serif {
@@ -123,6 +134,7 @@ body.rsvp-locked {
 }
 
 .app-press {
+  touch-action: manipulation;
   transition:
     transform 160ms var(--ease-silk),
     background 200ms var(--ease-silk),
@@ -139,6 +151,33 @@ body.rsvp-locked {
 @media (hover: hover) and (pointer: fine) {
   .app-press:active {
     transform: none;
+  }
+}
+
+.app-shell {
+  width: min(100%, 42rem);
+  margin-inline: auto;
+  padding-bottom: calc(4.75rem + var(--safe-bottom));
+}
+
+.app-reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 520ms var(--ease-ceremonial),
+    transform 520ms var(--ease-ceremonial);
+}
+
+.app-reveal.is-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 
@@ -167,9 +206,67 @@ body.rsvp-locked {
 
 .silk-texture {
   background-image:
-    radial-gradient(ellipse at 20% 10%, rgba(196, 165, 116, 0.12), transparent 40%),
-    radial-gradient(ellipse at 80% 90%, rgba(143, 29, 34, 0.08), transparent 42%),
-    linear-gradient(180deg, #fbf7f0 0%, #f6f0e6 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(248, 214, 196, 0.45), transparent 46%),
+    linear-gradient(180deg, #fbf6ee 0%, #f7eadc 100%);
+}
+
+.festival-kicker {
+  font-family: var(--font-ui), var(--font-sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-coral);
+}
+
+.festival-title {
+  font-family: var(--font-editorial), serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-navy);
+  letter-spacing: -0.02em;
+  overflow-wrap: break-word;
+}
+
+.festival-card {
+  border-radius: var(--app-radius);
+  background: rgba(255, 250, 244, 0.78);
+  box-shadow: 0 18px 40px rgba(42, 51, 68, 0.06);
+}
+
+.festival-pill {
+  display: inline-flex;
+  min-height: var(--touch-min);
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--color-coral);
+  color: #fffaf4;
+  font-family: var(--font-ui), sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  touch-action: manipulation;
+}
+
+.field-control {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.dot-screen {
+  position: relative;
+  overflow: hidden;
+}
+
+.dot-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#fbf6ee 1.15px, transparent 1.3px);
+  background-size: 7px 7px;
+  mix-blend-mode: lighten;
+  opacity: 0.88;
+  pointer-events: none;
 }
 
 .atmosphere-ivory { --bg: #f6f0e6; --fg: #2a1b18; }
@@ -217,7 +314,32 @@ body.rsvp-locked {
 
 .scene-3d {
   perspective: 1600px;
-  perspective-origin: 50% 40%;
+  perspective-origin: 50% 42%;
+}
+
+.atmosphere-plane {
+  border: 1px solid rgba(232, 90, 79, 0.16);
+  background: linear-gradient(145deg, rgba(255, 250, 244, 0.22), rgba(232, 90, 79, 0.08));
+  box-shadow: 0 16px 36px rgba(42, 51, 68, 0.05);
+  opacity: 0.55;
+}
+
+.scroll-cue {
+  transition: opacity 220ms var(--ease-silk), transform 220ms var(--ease-silk);
+}
+
+.scroll-cue-arrow {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  animation: cue-bounce 1.8s var(--ease-silk) infinite;
+}
+
+@keyframes cue-bounce {
+  0%, 100% { transform: rotate(45deg) translate3d(0, 0, 0); opacity: 0.4; }
+  50% { transform: rotate(45deg) translate3d(3px, 3px, 0); opacity: 1; }
 }
 
 .preserve-3d {
@@ -299,10 +421,16 @@ textarea:focus-visible {
 
 @media (max-width: 767px) {
   :root {
-    --page-x: max(1.1rem, env(safe-area-inset-left, 0px));
-    --page-x-end: max(1.1rem, env(safe-area-inset-right, 0px));
-    --section-y: clamp(3rem, 10vw, 4.25rem);
-    --section-y-lg: clamp(3.75rem, 12vw, 5.5rem);
+    --page-x: calc(1.15rem + env(safe-area-inset-left, 0px));
+    --page-x-end: calc(1.15rem + env(safe-area-inset-right, 0px));
+    --section-y: clamp(2.6rem, 8vw, 3.5rem);
+    --section-y-lg: clamp(3rem, 10vw, 4.25rem);
+    --app-radius: 1.15rem;
+    --header-h: 3.15rem;
+  }
+
+  .festival-kicker {
+    letter-spacing: 0.18em;
   }
 
   .paper-grain::before {
@@ -318,7 +446,7 @@ textarea:focus-visible {
   }
 
   .scene-3d {
-    perspective: 1100px;
+    perspective: 900px;
   }
 
   .photo-frame {
@@ -329,27 +457,62 @@ textarea:focus-visible {
   }
 
   .section-cv {
-    contain-intrinsic-size: auto 560px;
+    contain-intrinsic-size: auto 480px;
+  }
+
+  .dot-screen::after {
+    mix-blend-mode: normal;
+    opacity: 0.32;
+    background-size: 6px 6px;
+  }
+
+  .app-shell {
+    width: 100%;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
   :root {
-    --page-x: max(1.75rem, env(safe-area-inset-left, 0px));
-    --page-x-end: max(1.75rem, env(safe-area-inset-right, 0px));
-    --section-y: clamp(3.75rem, 7vw, 5.5rem);
-    --section-y-lg: clamp(5rem, 9vw, 7rem);
+    --page-x: calc(2rem + env(safe-area-inset-left, 0px));
+    --page-x-end: calc(2rem + env(safe-area-inset-right, 0px));
+    --section-y: clamp(3.25rem, 6vw, 4.75rem);
+    --section-y-lg: clamp(4rem, 8vw, 6rem);
+    --touch-min: 2.85rem;
+    --header-h: 3.5rem;
   }
 
   .scene-3d {
-    perspective: 1400px;
+    perspective: 1300px;
+  }
+
+  .app-shell {
+    width: min(100%, 46rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-shell {
+    width: min(100%, 52rem);
+  }
+
+  .festival-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
   }
 }
 
 @media (orientation: landscape) and (max-height: 500px) {
   :root {
-    --section-y: clamp(2.25rem, 8vh, 3.5rem);
-    --section-y-lg: clamp(2.75rem, 10vh, 4.25rem);
+    --section-y: clamp(1.75rem, 7vh, 2.75rem);
+    --section-y-lg: clamp(2rem, 9vh, 3.25rem);
+    --header-h: 2.75rem;
+  }
+}
+
+@media (pointer: coarse) {
+  .dot-screen::after {
+    mix-blend-mode: normal;
+    opacity: 0.28;
   }
 }
 

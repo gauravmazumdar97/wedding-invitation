@@ -44,6 +44,7 @@ export function AdminDashboard({ guests }: { guests: AdminGuest[] }) {
   }, [guests, query, eventFilter, statusFilter]);
 
   const accepted = guests.filter((guest) => guest.rsvp?.status === "accepted");
+  const maybe = guests.filter((guest) => guest.rsvp?.status === "maybe");
   const declined = guests.filter((guest) => guest.rsvp?.status === "declined");
   const pending = guests.filter((guest) => !guest.rsvp || guest.rsvp.status === "pending");
   const expected = accepted.reduce((sum, guest) => sum + (guest.rsvp?.attendingCount ?? 0), 0);
@@ -104,6 +105,7 @@ export function AdminDashboard({ guests }: { guests: AdminGuest[] }) {
           {[
             ["Invited", guests.length],
             ["Accepted", accepted.length],
+            ["Maybe", maybe.length],
             ["Declined", declined.length],
             ["Pending", pending.length],
             ["Expected", expected],
@@ -131,6 +133,7 @@ export function AdminDashboard({ guests }: { guests: AdminGuest[] }) {
           <select className="min-h-11 border border-[var(--color-gold)]/40 bg-transparent px-3" value={statusFilter} onChange={(event) => setStatusFilter(event.target.value)}>
             <option value="all">All RSVP</option>
             <option value="accepted">Accepted</option>
+            <option value="maybe">Maybe</option>
             <option value="declined">Declined</option>
             <option value="pending">Pending</option>
           </select>

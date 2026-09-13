@@ -5,7 +5,8 @@ import "./globals.css";
 
 const serif = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
   variable: "--font-editorial",
   display: "swap",
 });
@@ -27,9 +28,10 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  interactiveWidget: "resizes-content",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f6f0e6" },
-    { media: "(prefers-color-scheme: dark)", color: "#3f151c" },
+    { media: "(prefers-color-scheme: light)", color: "#fbf6ee" },
+    { media: "(prefers-color-scheme: dark)", color: "#2a3344" },
   ],
 };
 

@@ -1,15 +1,22 @@
 "use client";
 
-type ScrollPayload = { y: number; progress: number; velocity: number };
+export type ScrollPayload = {
+  y: number;
+  progress: number;
+  velocity: number;
+  direction: -1 | 0 | 1;
+};
+
 type ScrollListener = (payload: ScrollPayload) => void;
 
 let y = 0;
 let progress = 0;
 let velocity = 0;
+let direction: -1 | 0 | 1 = 0;
 let lastY = 0;
 let frame = 0;
 let listening = false;
-let snapshot: ScrollPayload = { y: 0, progress: 0, velocity: 0 };
+let snapshot: ScrollPayload = { y: 0, progress: 0, velocity: 0, direction: 0 };
 const listeners = new Set<ScrollListener>();
 
 function measure(): void {
@@ -18,8 +25,16 @@ function measure(): void {
   progress = Math.min(1, Math.max(0, y / max));
   velocity = y - lastY;
   lastY = y;
-  if (snapshot.y !== y || snapshot.progress !== progress || snapshot.velocity !== velocity) {
-    snapshot = { y, progress, velocity };
+  if (velocity > 0.6) direction = 1;
+  else if (velocity < -0.6) direction = -1;
+  else if (Math.abs(velocity) < 0.15) direction = 0;
+  if (
+    snapshot.y !== y ||
+    snapshot.progress !== progress ||
+    snapshot.velocity !== velocity ||
+    snapshot.direction !== direction
+  ) {
+    snapshot = { y, progress, velocity, direction };
   }
 }
 
@@ -52,7 +67,6 @@ function maybeStop(): void {
   }
 }
 
-/** For React useSyncExternalStore: notify with no args. */
 export function subscribeScrollChange(onStoreChange: () => void): () => void {
   return subscribeScroll(() => onStoreChange());
 }

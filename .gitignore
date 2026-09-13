@@ -18,6 +18,7 @@
 
 # runtime data
 /data/rsvps.json
+/data/blessings.json
 /data/admin-session.json
 
 # debug

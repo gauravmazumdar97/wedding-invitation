@@ -330,10 +330,15 @@ export const wedding: WeddingConfig = {
     text: "We have shared so many chapters of our lives with the people we love. It would mean the world to begin this next one with you beside us.",
     textBn:
       "আমাদের এই নতুন পথচলার শুরুতে আপনাদের আশীর্বাদ ও উপস্থিতিই আমাদের সবচেয়ে বড় আনন্দ।",
+    video: "",
+  },
+  quote: {
+    text: "It began with a wrong tram and a borrowed book. It continues with two houses learning how to become one.",
+    textBn: "শুরু হয়েছিল এক ভুল ট্রাম আর এক ধার করা বই দিয়ে। এখন দুটি ঘর এক হওয়ার পথে।",
   },
   countdown: {
-    before: "Until we say শুভ দৃষ্টি",
-    beforeBn: "শুভ দৃষ্টি পর্যন্ত",
+    before: "Until forever begins",
+    beforeBn: "চিরকাল শুরু হওয়ার আগে",
     after: "We are married. Thank you for walking with us.",
     afterBn: "আমরা পরিণয়সূত্রে আবদ্ধ। ধন্যবাদ।",
   },
@@ -381,12 +386,17 @@ export const wedding: WeddingConfig = {
     siteUrl: "https://example.com",
   },
   rsvp: {
-    acceptLabel: "Joyfully Accept",
-    declineLabel: "Regretfully Decline",
+    acceptLabel: "Joyfully",
+    maybeLabel: "Maybe",
+    declineLabel: "Can't",
     thanks: "We can't wait to celebrate with you.",
     thanksBn: "ধন্যবাদ",
+    maybeThanks: "Thank you. We will keep you close as plans settle.",
+    maybeThanksBn: "ধন্যবাদ। খবর রাখব।",
     declineThanks: "You will be missed, and held close.",
     declineThanksBn: "আপনাদের অভাব অনুভব করব।",
+    byline: "Please respond by 12 November 2026",
+    hashtag: "#ANANYAWEDSROHAN",
   },
   copy: {
     openInvitation: "Open Invitation",

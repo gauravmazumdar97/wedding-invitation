@@ -1,104 +1,76 @@
 "use client";
 
-import { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import { wedding } from "@/config/wedding";
 import { WeddingPhoto } from "@/components/media/WeddingPhoto";
+import { FestivalHeading } from "@/components/ui/FestivalHeading";
+import { DepthStage } from "@/components/motion/DepthStage";
+import { TiltCard } from "@/components/motion/TiltCard";
 import { useExperience } from "@/components/providers/ExperienceProvider";
-import { useNativeScrollExperience, usePrefersReducedMotion } from "@/hooks/useMedia";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 export function OurStory() {
   const { language } = useExperience();
-  const root = useRef<HTMLElement>(null);
-  const reduced = usePrefersReducedMotion();
-  const nativeScroll = useNativeScrollExperience();
   const chapters = wedding.story;
-  const stacked = reduced || nativeScroll;
-
-  useGSAP(
-    () => {
-      if (!root.current || stacked) return;
-      const slides = gsap.utils.toArray<HTMLElement>("[data-slide]");
-      gsap.set(slides, { autoAlpha: 0 });
-      gsap.set(slides[0], { autoAlpha: 1 });
-
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: root.current,
-          start: "top top",
-          end: () => `+=${Math.max(1, chapters.length) * 90}%`,
-          pin: true,
-          scrub: 0.4,
-          anticipatePin: 1,
-        },
-      });
-
-      slides.forEach((slide, index) => {
-        if (index === 0) return;
-        timeline.to(slides[index - 1], { autoAlpha: 0, duration: 1 }, index);
-        timeline.fromTo(slide, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 1 }, index);
-      });
-    },
-    { scope: root, dependencies: [stacked, chapters.length] },
-  );
 
   return (
-    <section id="story" ref={root} className="relative bg-[var(--color-paper)] section-cv">
-      <div className={stacked ? "space-y-14 px-[var(--page-x)] py-[var(--section-y-lg)] sm:space-y-16" : "relative h-dvh overflow-hidden"}>
-        {stacked ? (
-          <div className="mx-auto max-w-6xl text-center md:text-left">
-            <p className="font-bn text-sm tracking-[0.28em] text-[var(--color-sindoor)]">{wedding.storyIntro.titleBn}</p>
-            <h2 className="mt-2 font-serif text-[2.35rem] text-[var(--color-sindoor)] sm:text-4xl">
-              {language === "bn" ? wedding.storyIntro.titleBn : wedding.storyIntro.title}
-            </h2>
+    <>
+      <section id="story" className="section-pad">
+        <DepthStage>
+          <FestivalHeading kicker="Our story" title={wedding.storyIntro.title} />
+          <blockquote className="mx-auto mt-6 max-w-2xl px-1 text-center font-serif text-[clamp(1.35rem,5.4vw,1.85rem)] italic leading-snug text-[var(--color-navy)] sm:mt-10 sm:text-4xl">
+            "{language === "bn" ? wedding.storyIntro.textBn : wedding.storyIntro.text}"
+          </blockquote>
+        </DepthStage>
+      </section>
+
+      <section className="section-pad pt-2 sm:pt-0">
+        <DepthStage>
+          <FestivalHeading kicker="Our journey" title="A Love in Moments" />
+          <div className="relative mx-auto mt-10 max-w-3xl sm:mt-12">
+            <span className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-[var(--color-coral)]/35 md:block" />
+            <ol className="space-y-12 sm:space-y-16">
+              {chapters.map((chapter, index) => {
+                const photoLeft = index % 2 === 1;
+                return (
+                  <li key={chapter.id} className="grid items-center gap-5 md:grid-cols-2 md:gap-12">
+                    <div className={photoLeft ? "text-center md:order-1 md:text-left" : "text-center md:order-2 md:text-right"}>
+                      <p className="font-serif text-3xl italic text-[var(--color-coral)] sm:text-5xl">{chapter.year}</p>
+                      <h3 className="mt-1 font-serif text-xl text-[var(--color-navy)] sm:mt-2 sm:text-3xl">
+                        {language === "bn" ? chapter.titleBn : chapter.title}
+                      </h3>
+                      <p
+                        className={`mx-auto mt-3 max-w-sm font-serif text-[0.98rem] leading-relaxed text-[var(--color-muted)] sm:text-base ${
+                          photoLeft ? "md:mx-0" : "md:ml-auto md:mr-0"
+                        }`}
+                      >
+                        {language === "bn" ? chapter.textBn : chapter.text}
+                      </p>
+                    </div>
+                    <div
+                      className={`flex justify-center ${
+                        photoLeft ? "md:order-2 md:justify-start" : "md:order-1 md:justify-end"
+                      }`}
+                    >
+                      <TiltCard max={8} pressFeedback>
+                        <div className="relative">
+                          <span className="absolute -left-3 top-1/2 hidden h-3 w-3 -translate-y-1/2 rounded-full bg-[var(--color-coral)] md:block" />
+                          <div className="h-40 w-40 overflow-hidden rounded-full sm:h-52 sm:w-52">
+                            <WeddingPhoto
+                              src={chapter.photo}
+                              alt={chapter.photoAlt}
+                              className="h-full w-full"
+                              sizes="(max-width: 767px) 40vw, 208px"
+                            />
+                          </div>
+                        </div>
+                      </TiltCard>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
           </div>
-        ) : null}
-        {chapters.map((chapter, index) => (
-          <article
-            key={chapter.id}
-            data-slide
-            className={
-              stacked
-                ? "mx-auto grid max-w-6xl gap-7 md:grid-cols-2 md:gap-10 md:items-center"
-                : "absolute inset-0 grid items-center gap-8 px-6 py-20 md:grid-cols-2 md:px-16"
-            }
-          >
-            {index === 0 && !stacked ? (
-              <p className="absolute left-6 top-8 font-bn text-sm tracking-[0.28em] text-[var(--color-sindoor)] md:left-16">
-                {wedding.storyIntro.titleBn}
-              </p>
-            ) : null}
-            <WeddingPhoto
-              framed
-              src={chapter.photo}
-              alt={chapter.photoAlt}
-              className="mx-auto aspect-[4/5] w-full max-w-md"
-              sizes="(max-width: 767px) 88vw, (max-width: 1023px) 42vw, 448px"
-            />
-            <div className={stacked ? "text-center md:text-left" : undefined}>
-              <p className="font-serif text-sm tracking-[0.3em] text-[var(--color-gold)]">{chapter.year}</p>
-              <h3 className="mt-3 font-serif text-[2.15rem] leading-tight text-[var(--color-sindoor)] sm:text-4xl md:text-6xl">
-                {language === "bn" ? chapter.titleBn : chapter.title}
-              </h3>
-              <p className="mt-2 font-bn text-lg text-[var(--color-maroon)] sm:text-xl">
-                {language === "bn" ? chapter.title : chapter.titleBn}
-              </p>
-              <p className="mx-auto mt-5 max-w-md font-serif text-lg leading-relaxed italic sm:mt-6 sm:text-xl md:mx-0">
-                {language === "bn" ? chapter.textBn : chapter.text}
-              </p>
-              <p className="mt-6 font-serif text-xs tracking-[0.25em] text-[var(--color-muted)] sm:mt-8">
-                {index + 1} / {chapters.length}
-              </p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
+        </DepthStage>
+      </section>
+    </>
   );
 }

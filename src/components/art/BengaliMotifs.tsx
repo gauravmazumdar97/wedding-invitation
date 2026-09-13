@@ -146,12 +146,3 @@ export function KanthaBorder({ className }: { className?: string }) {
     </svg>
   );
 }
-
-export function RitualMark({ id, className }: { id: string; className?: string }) {
-  if (id === "haldi" || id === "mehendi") return <Marigold className={className} />;
-  if (id === "aiburo-bhaat" || id === "reception") return <BananaLeaf className={className} />;
-  if (id === "ashirbaad") return <Diya className={className} />;
-  if (id === "sangeet") return <Shehnai className={className} />;
-  if (id === "wedding") return <WeddingMala className={className} />;
-  return <Kalka className={className} />;
-}

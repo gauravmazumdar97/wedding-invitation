@@ -42,8 +42,8 @@ export async function POST(request: Request) {
   }
 
   const status = body.status;
-  if (status !== "accepted" && status !== "declined") {
-    return NextResponse.json({ error: "Choose accept or decline" }, { status: 400 });
+  if (status !== "accepted" && status !== "declined" && status !== "maybe") {
+    return NextResponse.json({ error: "Choose a response" }, { status: 400 });
   }
 
   const attendingCount = status === "accepted" ? Number(body.attendingCount || 0) : 0;
