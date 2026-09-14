@@ -43,6 +43,11 @@ export function useIsNarrow(): boolean {
   return useMedia("(max-width: 1023px)");
 }
 
+/** Laptop and desktop widths with room for side ornaments. */
+export function useIsLaptop(): boolean {
+  return useMedia("(min-width: 1024px)");
+}
+
 /**
  * Prefer native scroll stacks over GSAP pin/scrub.
  * Covers phones, tablets, and touch-first devices (including large iPads).

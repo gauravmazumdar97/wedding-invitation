@@ -1,18 +1,69 @@
 "use client";
 
+import type { FamilyMember } from "@/types/wedding";
 import { wedding } from "@/config/wedding";
 import { FestivalHeading } from "@/components/ui/FestivalHeading";
 import { DepthStage } from "@/components/motion/DepthStage";
 import { TiltCard } from "@/components/motion/TiltCard";
 import { useExperience } from "@/components/providers/ExperienceProvider";
 
-function familyLine(members: { name: string }[]) {
-  const last = members[0]?.name.split(" ").slice(-1)[0] ?? "";
-  const firsts = members.map((member) => member.name.replace(` ${last}`, "").trim());
-  if (firsts.length >= 2) {
-    return `${firsts[0]} & ${firsts[1]} ${last}`;
-  }
-  return members.map((member) => member.name).join(" & ");
+const circles: Array<{ id: FamilyMember["circle"]; en: string; bn: string }> = [
+  { id: "parents", en: "Parents", bn: "পিতা-মাতা" },
+  { id: "siblings", en: "Brothers and sisters", bn: "ভাই-বোন" },
+  { id: "elders", en: "With the blessing of", bn: "আশীর্বাদে" },
+];
+
+function HouseCard({
+  kicker,
+  kickerBn,
+  house,
+  houseBn,
+  members,
+  language,
+}: {
+  kicker: string;
+  kickerBn: string;
+  house: string;
+  houseBn: string;
+  members: FamilyMember[];
+  language: "en" | "bn";
+}) {
+  return (
+    <TiltCard max={6} pressFeedback>
+      <article className="festival-card h-full px-5 py-7 text-left sm:px-6 sm:py-8">
+        <p className="festival-kicker">{language === "bn" ? kickerBn : kicker}</p>
+        <p className="mt-3 font-serif text-[1.45rem] leading-tight text-[var(--color-navy)] sm:text-3xl">
+          {language === "bn" ? houseBn : house}
+        </p>
+        {circles.map((circle) => {
+          const group = members.filter((member) => member.circle === circle.id);
+          if (!group.length) return null;
+          return (
+            <div key={circle.id} className="mt-6 border-t border-[var(--color-gold)]/25 pt-5">
+              <p className="font-sans text-[0.62rem] uppercase tracking-[0.2em] text-[var(--color-coral)]">
+                {language === "bn" ? circle.bn : circle.en}
+              </p>
+              <ul className="mt-3 space-y-3.5">
+                {group.map((member) => (
+                  <li key={member.name}>
+                    <p className="font-serif text-lg text-[var(--color-navy)] sm:text-xl">
+                      {language === "bn" && member.nameBn ? member.nameBn : member.name}
+                    </p>
+                    <p className="mt-0.5 text-sm italic text-[var(--color-muted)]">
+                      {language === "bn" ? member.relationBn : member.relation}
+                      {member.note
+                        ? ` · ${language === "bn" && member.noteBn ? member.noteBn : member.note}`
+                        : ""}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </article>
+    </TiltCard>
+  );
 }
 
 export function FamilyBlessings() {
@@ -26,34 +77,23 @@ export function FamilyBlessings() {
           title={language === "bn" ? "আমাদের পরিবার" : "Our Families"}
           bengali={language === "bn" ? undefined : "আমাদের পরিবার"}
         />
-        <div className="relative mx-auto mt-10 grid max-w-3xl gap-7 text-center sm:mt-12 md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-6">
-          <TiltCard max={8} pressFeedback>
-          <article className="festival-card px-5 py-7">
-            <p className="festival-kicker">{language === "bn" ? "কন্যাপক্ষ" : "Kanyapaksha"}</p>
-            <p className="mt-1 font-bn text-sm text-[var(--color-maroon)]">{language === "bn" ? "Bride's house" : "কন্যাপক্ষ"}</p>
-            <p className="mt-3 font-serif text-[1.45rem] text-[var(--color-navy)] sm:mt-4 sm:text-3xl">
-              {familyLine(wedding.families.bride)}
-            </p>
-            <p className="mt-2 font-serif italic text-[var(--color-muted)]">
-              {language === "bn" ? "কনের পিতা-মাতা" : "Parents of the Bride"}
-            </p>
-          </article>
-          </TiltCard>
-          <p className="font-serif text-3xl italic text-[var(--color-coral)] sm:text-4xl" aria-hidden>
-            &
-          </p>
-          <TiltCard max={8} pressFeedback>
-          <article className="festival-card px-5 py-7">
-            <p className="festival-kicker">{language === "bn" ? "বরপক্ষ" : "Borpaksha"}</p>
-            <p className="mt-1 font-bn text-sm text-[var(--color-maroon)]">{language === "bn" ? "Groom's house" : "বরপক্ষ"}</p>
-            <p className="mt-3 font-serif text-[1.45rem] text-[var(--color-navy)] sm:mt-4 sm:text-3xl">
-              {familyLine(wedding.families.groom)}
-            </p>
-            <p className="mt-2 font-serif italic text-[var(--color-muted)]">
-              {language === "bn" ? "বরের পিতা-মাতা" : "Parents of the Groom"}
-            </p>
-          </article>
-          </TiltCard>
+        <div className="relative mx-auto mt-10 grid max-w-4xl gap-7 sm:mt-12 md:grid-cols-2 md:items-start md:gap-6">
+          <HouseCard
+            kicker="Kanyapaksha"
+            kickerBn="কন্যাপক্ষ"
+            house={wedding.families.brideHouse}
+            houseBn={wedding.families.brideHouseBn}
+            members={wedding.families.bride}
+            language={language}
+          />
+          <HouseCard
+            kicker="Borpaksha"
+            kickerBn="বরপক্ষ"
+            house={wedding.families.groomHouse}
+            houseBn={wedding.families.groomHouseBn}
+            members={wedding.families.groom}
+            language={language}
+          />
         </div>
       </DepthStage>
     </section>

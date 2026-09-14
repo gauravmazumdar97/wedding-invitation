@@ -5,87 +5,122 @@ import { motion } from "framer-motion";
 import { wedding } from "@/config/wedding";
 import { coupleDisplay } from "@/lib/invite";
 import { AlpanaIllustration } from "@/components/art/AlpanaIllustration";
-import { CornerAlpana } from "@/components/art/Ornaments";
 import { Kalka, KanthaBorder, ShankhaPola } from "@/components/art/BengaliMotifs";
-import { WeddingMonogram } from "@/components/art/WeddingMonogram";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { useExperience } from "@/components/providers/ExperienceProvider";
 import { useSceneTilt } from "@/hooks/useSceneTilt";
-import { usePrefersReducedMotion } from "@/hooks/useMedia";
+import { useNativeScrollExperience, usePrefersReducedMotion } from "@/hooks/useMedia";
 
 export function InvitationEnvelope({ onOpened }: { onOpened: () => void }) {
   const { guest, language, setMusicOn, triggerPetals } = useExperience();
   const [opening, setOpening] = useState(false);
   const world = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
+  const nativeScroll = useNativeScrollExperience();
   const { first, second } = coupleDisplay();
 
-  useSceneTilt(world, { intensity: 14, depth: 28, enabled: !opening && !reduced });
+  useSceneTilt(world, {
+    intensity: nativeScroll ? 8 : 14,
+    depth: nativeScroll ? 18 : 30,
+    enabled: !opening && !reduced,
+  });
 
   const open = () => {
     if (opening) return;
     setOpening(true);
     setMusicOn(true);
     triggerPetals();
-    window.setTimeout(onOpened, reduced ? 120 : 900);
+    window.setTimeout(onOpened, reduced ? 140 : 1680);
   };
 
   return (
-    <div className="paper-grain relative flex min-h-dvh items-center justify-center overflow-hidden bg-[#8f1d22] px-[var(--page-x)] pb-[max(6.5rem,calc(var(--safe-bottom)+5.5rem))] pt-[max(3rem,calc(var(--safe-top)+1.5rem))]">
-      <AlpanaIllustration className="pointer-events-none absolute left-1/2 top-1/2 h-[min(130vw,42rem)] w-[min(130vw,42rem)] -translate-x-1/2 -translate-y-1/2 opacity-[0.12] md:h-[55vw] md:w-[55vw]" />
-      <Kalka className="pointer-events-none absolute left-[max(0.75rem,var(--safe-left))] top-[max(1.25rem,calc(var(--safe-top)+0.75rem))] h-16 w-11 opacity-30 sm:h-20 sm:w-14 md:left-10" />
-      <Kalka className="pointer-events-none absolute right-[max(0.75rem,var(--safe-right))] top-[max(1.25rem,calc(var(--safe-top)+0.75rem))] h-16 w-11 rotate-180 opacity-30 sm:h-20 sm:w-14 md:right-10" />
+    <div className="paper-grain silk-texture relative flex h-full min-h-dvh flex-col items-center justify-center overflow-hidden px-[var(--page-x)] pb-[max(6.5rem,calc(var(--safe-bottom)+5.25rem))] pt-[max(3rem,calc(var(--safe-top)+1.5rem))]">
+      <AlpanaIllustration className="pointer-events-none absolute left-1/2 top-[42%] h-[min(128vw,40rem)] w-[min(128vw,40rem)] -translate-x-1/2 -translate-y-1/2 opacity-[0.16]" />
+      <Kalka className="pointer-events-none absolute left-[max(0.75rem,var(--safe-left))] top-[max(1.1rem,calc(var(--safe-top)+0.6rem))] h-16 w-11 opacity-40 sm:h-20 sm:w-14" />
+      <Kalka className="pointer-events-none absolute right-[max(0.75rem,var(--safe-right))] top-[max(1.1rem,calc(var(--safe-top)+0.6rem))] h-16 w-11 rotate-180 opacity-40 sm:h-20 sm:w-14" />
 
-      <div className="scene-3d relative w-full max-w-[26rem]">
-        <div ref={world} className="preserve-3d">
-          <motion.article
-            className="relative overflow-hidden bg-[var(--color-paper)] px-5 py-9 shadow-[0_40px_100px_rgba(20,8,10,0.45)] sm:px-6 sm:py-10 md:px-8 md:py-12"
-            style={{ boxShadow: "inset 0 0 0 1px #c4a574, inset 0 0 0 7px #8f1d22, inset 0 0 0 8px #c4a574" }}
-            animate={
-              opening && !reduced
-                ? { rotateY: -88, rotateX: 6, z: 100, scale: 1.04, opacity: 0 }
-                : { rotateY: 0, rotateX: 0, z: 0, scale: 1, opacity: 1 }
-            }
-            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <CornerAlpana className="absolute left-3 top-3 h-10 w-10 sm:h-11 sm:w-11" />
-            <CornerAlpana className="absolute right-3 top-3 h-10 w-10 rotate-90 sm:h-11 sm:w-11" />
-            <CornerAlpana className="absolute bottom-3 left-3 h-10 w-10 -rotate-90 sm:h-11 sm:w-11" />
-            <CornerAlpana className="absolute bottom-3 right-3 h-10 w-10 rotate-180 sm:h-11 sm:w-11" />
+      <p className="festival-kicker relative z-10">{wedding.copy.shubhoBibaho}</p>
+      <p className="relative z-10 mt-3 max-w-sm text-center font-serif text-lg italic text-[var(--color-navy)] sm:text-xl">
+        {language === "bn" ? wedding.copy.invitationForBn : wedding.copy.invitationFor}
+      </p>
 
-            <p className="text-center font-bn text-xl text-[var(--color-sindoor)] sm:text-2xl">{wedding.copy.shubhoBibaho}</p>
-            <KanthaBorder className="mx-auto mt-4 w-44 sm:w-48" />
-            <p className="mt-5 text-center font-serif text-[0.65rem] uppercase tracking-[0.36em] text-[var(--color-gold)] sm:mt-6 sm:tracking-[0.42em]">
-              {language === "bn" ? wedding.copy.invitationForBn : wedding.copy.invitationFor}
-            </p>
-            <h1 className="mt-3 text-center font-serif text-[2rem] leading-tight text-[var(--color-ink)] sm:text-4xl">
-              {guest.guestName}
-            </h1>
-            <p className="mt-2 text-center font-bn text-base text-[var(--color-maroon)] sm:text-lg">{guest.greetingBn}</p>
-            <p className="mx-auto mt-5 max-w-xs text-center font-serif text-base italic leading-relaxed sm:mt-6 sm:text-lg">
-              {language === "bn" ? guest.inviteTextBn : guest.inviteText}
-            </p>
-            <div className="mt-6 flex justify-center sm:mt-7">
-              <WeddingMonogram decorative size="sm" />
-            </div>
-            <p className="mt-4 text-center font-serif text-lg text-[var(--color-sindoor)] sm:mt-5 sm:text-xl">
-              {first.fullName}
-            </p>
-            <p className="text-center font-serif text-sm text-[var(--color-gold)]">&</p>
-            <p className="text-center font-serif text-lg text-[var(--color-sindoor)] sm:text-xl">{second.fullName}</p>
-            <p className="mt-3 text-center font-serif text-xs tracking-[0.22em] text-[var(--color-muted)] sm:mt-4">
-              {wedding.date.display} · {wedding.location.city}
-            </p>
-            <ShankhaPola className="mx-auto mt-5 h-7 w-16 sm:mt-6 sm:h-8 sm:w-20" />
-          </motion.article>
-        </div>
+      <div className="scene-3d relative z-10 mt-8 w-full max-w-[22.5rem] sm:mt-10">
+        <motion.div
+          className="preserve-3d flex justify-center"
+          animate={
+            opening && !reduced
+              ? { y: -22, scale: 1.05, opacity: 0 }
+              : { y: 0, scale: 1, opacity: 1 }
+          }
+          transition={{ duration: opening ? 0.85 : 0.7, delay: opening ? 0.78 : 0, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="preserve-3d" style={{ transform: "rotateX(14deg)" }}>
+          <div ref={world} className="preserve-3d">
+          <button type="button" className="envelope-stage relative" onClick={open} aria-label={wedding.copy.openInvitation}>
+            <span className="envelope-glow" aria-hidden />
+            <span className="envelope-back" aria-hidden />
+
+            <motion.span
+              className="envelope-letter overflow-hidden px-4 py-5 text-center sm:px-5 sm:py-6"
+              animate={
+                opening && !reduced
+                  ? { y: "-54%", z: 46, rotateX: -6, scale: 1.05 }
+                  : { y: "12%", z: 12, rotateX: 0, scale: 1 }
+              }
+              transition={{ duration: 1.05, delay: opening ? 0.22 : 0, ease: [0.22, 1, 0.36, 1] }}
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <p className="font-sans text-[0.58rem] uppercase tracking-[0.28em] text-[var(--color-coral)]">
+                {language === "bn" ? wedding.copy.invitationForBn : wedding.copy.invitationFor}
+              </p>
+              <p className="mt-2 font-serif text-xl italic text-[var(--color-navy)] sm:text-2xl">{guest.guestName}</p>
+              <p className="mt-1 font-bn text-sm text-[var(--color-maroon)]">{guest.greetingBn}</p>
+              <KanthaBorder className="mx-auto mt-3 w-32 opacity-80" />
+              <p className="festival-title mt-3 text-2xl leading-none sm:text-3xl">
+                {first.firstName} <span className="not-italic text-[var(--color-coral)]">&</span> {second.firstName}
+              </p>
+              <p className="mt-2 font-bn text-sm text-[var(--color-maroon)]">
+                {first.bengaliName} ও {second.bengaliName}
+              </p>
+              <p className="mt-3 font-sans text-[0.58rem] uppercase tracking-[0.2em] text-[var(--color-muted)]">
+                {language === "bn" ? wedding.date.displayBn : wedding.date.display}
+              </p>
+            </motion.span>
+
+            <span className="envelope-pocket" aria-hidden />
+
+            <motion.span
+              className="envelope-flap"
+              animate={opening && !reduced ? { rotateX: -158 } : { rotateX: 0 }}
+              transition={{ duration: 1.12, ease: [0.22, 1, 0.36, 1] }}
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <span className="envelope-flap-skin" aria-hidden />
+              <span className="envelope-flap-lining" aria-hidden />
+              <motion.span
+                className="envelope-seal font-serif text-sm tracking-[0.12em] text-[var(--color-paper)]"
+                animate={opening && !reduced ? { scale: 0.2, y: -18, opacity: 0 } : { scale: 1, y: 0, opacity: 1 }}
+                transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {wedding.couple.monogram.left}
+                {wedding.couple.monogram.joiner}
+                {wedding.couple.monogram.right}
+              </motion.span>
+            </motion.span>
+          </button>
+          </div>
+          </div>
+        </motion.div>
       </div>
+
+      <ShankhaPola className="relative z-10 mt-8 h-8 w-[4.5rem] opacity-80" />
 
       <div className="safe-fixed-bc absolute left-0 right-0 z-20 px-[var(--page-x)] text-center">
         <MagneticButton
           type="button"
           onClick={open}
-          className="min-h-[var(--touch-min)] border border-[var(--color-candle)] bg-[var(--color-paper)] px-8 py-3 font-serif text-sm tracking-[0.28em] text-[var(--color-sindoor)]"
+          disabled={opening}
+          className="festival-pill px-8 font-serif text-sm tracking-[0.22em]"
         >
           {language === "bn" ? wedding.copy.openInvitationBn : wedding.copy.openInvitation}
         </MagneticButton>

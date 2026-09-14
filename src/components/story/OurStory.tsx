@@ -33,7 +33,6 @@ export function OurStory() {
                 return (
                   <li key={chapter.id} className="grid items-center gap-5 md:grid-cols-2 md:gap-12">
                     <div className={photoLeft ? "text-center md:order-1 md:text-left" : "text-center md:order-2 md:text-right"}>
-                      <div className="festival-card px-5 py-6 sm:px-7 sm:py-8">
                       <p className="font-serif text-3xl italic text-[var(--color-coral)] sm:text-5xl">{chapter.year}</p>
                       <h3 className="mt-1 font-serif text-xl text-[var(--color-navy)] sm:mt-2 sm:text-3xl">
                         {language === "bn" ? chapter.titleBn : chapter.title}
@@ -45,7 +44,6 @@ export function OurStory() {
                       >
                         {language === "bn" ? chapter.textBn : chapter.text}
                       </p>
-                      </div>
                     </div>
                     <div
                       className={`flex justify-center ${
@@ -53,7 +51,7 @@ export function OurStory() {
                       }`}
                     >
                       <TiltCard max={8} pressFeedback>
-                        <div className="festival-card relative p-4 sm:p-5">
+                        <div className="relative">
                           <span className="absolute -left-3 top-1/2 hidden h-3 w-3 -translate-y-1/2 rounded-full bg-[var(--color-coral)] md:block" />
                           <div className="h-40 w-40 overflow-hidden rounded-full sm:h-52 sm:w-52">
                             <WeddingPhoto

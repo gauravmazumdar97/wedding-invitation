@@ -30,8 +30,8 @@ export const viewport: Viewport = {
   viewportFit: "cover",
   interactiveWidget: "resizes-content",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fbf6ee" },
-    { media: "(prefers-color-scheme: dark)", color: "#2a3344" },
+    { media: "(prefers-color-scheme: light)", color: "#faf7f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#c41e3a" },
   ],
 };
 
@@ -65,7 +65,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${serif.variable} ${bengali.variable} ${sans.variable}`}>
-      <body className={`${sans.className} antialiased`}>{children}</body>
+      <body className={`${sans.className} antialiased`}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "history.scrollRestoration='manual';window.scrollTo(0,0);",
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

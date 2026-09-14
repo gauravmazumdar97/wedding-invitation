@@ -16,11 +16,14 @@ export function ShankhaPola({ className }: { className?: string }) {
 export function Topor({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 90 110" className={cn(className)} fill="none" aria-hidden>
-      <path d="M45 8c10 18 22 38 28 62H17C23 46 35 26 45 8z" fill="#f6f0e6" stroke="#c4a574" />
-      <path d="M45 8c-2 20 2 40 8 58" stroke="#c4a574" strokeWidth="0.7" />
-      <circle cx="45" cy="22" r="3" fill="#8f1d22" />
-      <path d="M18 72h54v10c0 8-12 16-27 16s-27-8-27-16z" fill="#f6f0e6" stroke="#c4a574" />
-      <path d="M24 78h42" stroke="#8f1d22" strokeWidth="0.6" />
+      <path d="M45 6c12 20 26 42 32 66H13C19 48 33 26 45 6z" fill="#fffdf9" stroke="#c9a44e" strokeWidth="1.2" />
+      <path d="M45 6c-3 22 1 44 9 62" stroke="#c9a44e" strokeWidth="0.7" />
+      <path d="M32 48c8-6 16-6 26 0" stroke="#c41e3a" strokeWidth="0.8" />
+      <circle cx="45" cy="20" r="3.4" fill="#c41e3a" />
+      <circle cx="45" cy="20" r="1.4" fill="#c9a44e" />
+      <path d="M16 74h58v11c0 9-13 17-29 17s-29-8-29-17z" fill="#fffdf9" stroke="#c9a44e" />
+      <path d="M24 80h42" stroke="#c41e3a" strokeWidth="0.7" />
+      <path d="M30 86h30" stroke="#c9a44e" strokeWidth="0.6" />
     </svg>
   );
 }
@@ -28,12 +31,15 @@ export function Topor({ className }: { className?: string }) {
 export function Mukut({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 110 70" className={cn(className)} fill="none" aria-hidden>
-      <path d="M10 54c8-22 22-36 45-40 23 4 37 18 45 40" stroke="#c4a574" strokeWidth="1.4" />
-      <path d="M18 54c6-16 16-26 37-30 21 4 31 14 37 30" stroke="#8f1d22" strokeWidth="0.7" />
-      <circle cx="55" cy="18" r="5" fill="#8f1d22" />
-      <circle cx="32" cy="30" r="3" fill="#c4a574" />
-      <circle cx="78" cy="30" r="3" fill="#c4a574" />
-      <path d="M55 18v14" stroke="#e8c97a" />
+      <path d="M8 56c10-24 24-40 47-46 23 6 37 22 47 46" fill="#fffdf9" stroke="#c9a44e" strokeWidth="1.4" />
+      <path d="M18 54c8-16 18-26 37-30 19 4 29 14 37 30" stroke="#c41e3a" strokeWidth="0.8" />
+      <path d="M55 10l6 16H49z" fill="#c41e3a" />
+      <path d="M28 28l4 14h-8z" fill="#c9a44e" />
+      <path d="M82 28l4 14h-8z" fill="#c9a44e" />
+      <circle cx="55" cy="16" r="4.5" fill="#c41e3a" />
+      <circle cx="55" cy="16" r="1.8" fill="#c9a44e" />
+      <circle cx="32" cy="32" r="2.6" fill="#c9a44e" />
+      <circle cx="78" cy="32" r="2.6" fill="#c9a44e" />
     </svg>
   );
 }

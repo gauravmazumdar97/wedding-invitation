@@ -61,7 +61,6 @@ export function TiltCard({
     <div className={cn("[perspective:1100px] [touch-action:pan-y]", wrapperClassName)}>
       <div
         ref={ref}
-        data-cursor="hover"
         className={cn("relative will-change-transform", className)}
         style={{
           transformStyle: "preserve-3d",

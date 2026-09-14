@@ -9,7 +9,6 @@ import { useIsNarrow, usePrefersReducedMotion } from "@/hooks/useMedia";
 
 const links = [
   { href: "#story", en: wedding.copy.ourStory, bn: wedding.copy.ourStoryBn },
-  { href: "#traditions", en: wedding.copy.traditions, bn: wedding.copy.traditionsBn },
   { href: "#events", en: wedding.copy.events, bn: wedding.copy.eventsBn },
   { href: "#gallery", en: wedding.copy.gallery, bn: wedding.copy.galleryBn },
   { href: "#venue", en: wedding.copy.venue, bn: wedding.copy.venueBn },

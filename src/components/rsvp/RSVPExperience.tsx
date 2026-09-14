@@ -137,8 +137,8 @@ export function RSVPExperience() {
                       onClick={() => setStatus(choice.status)}
                       className={`app-press min-h-[var(--touch-min)] rounded-full border px-1.5 font-sans text-[0.58rem] uppercase leading-tight tracking-[0.08em] sm:px-2 sm:text-[0.68rem] sm:tracking-[0.18em] ${
                         selected
-                          ? "border-[var(--color-navy)] bg-[var(--color-navy)] text-[var(--color-paper)]"
-                          : "border-[var(--color-navy)]/25 text-[var(--color-navy)]"
+                          ? "border-[var(--color-gold)] bg-[var(--color-sindoor)] text-[var(--color-paper)]"
+                          : "border-[var(--color-sindoor)]/25 text-[var(--color-sindoor)]"
                       }`}
                     >
                       {choice.label}

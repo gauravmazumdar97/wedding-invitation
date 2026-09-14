@@ -5,32 +5,32 @@
   --font-bengali: "Tiro Bangla", "Noto Serif Bengali", serif;
   --font-sans: "Outfit", "Segoe UI", sans-serif;
 
-  --color-ivory: #fbf6ee;
-  --color-paper: #fffaf4;
-  --color-sindoor: #e85a4f;
-  --color-vermilion: #e85a4f;
-  --color-burgundy: #2a3344;
-  --color-maroon: #6b4a46;
-  --color-terracotta: #e85a4f;
-  --color-gold: #d9b08a;
-  --color-candle: #f0c9a8;
-  --color-beige: #f3e6d6;
-  --color-ink: #2a3344;
-  --color-muted: #7a726b;
+  --color-ivory: #faf7f2;
+  --color-paper: #fffdf9;
+  --color-sindoor: #c41e3a;
+  --color-vermilion: #c41e3a;
+  --color-burgundy: #9e1830;
+  --color-maroon: #9e1830;
+  --color-terracotta: #c41e3a;
+  --color-gold: #c9a44e;
+  --color-candle: #e8d5a3;
+  --color-beige: #f3eadc;
+  --color-ink: #3d2426;
+  --color-muted: #8d7468;
   --color-leaf: #5c6b4a;
-  --color-indigo: #2a3344;
-  --color-rose: #e8a399;
-  --color-coral: #e85a4f;
-  --color-navy: #2a3344;
-  --color-blush: #f8e4d6;
+  --color-indigo: #3d2426;
+  --color-rose: #e2b3b4;
+  --color-coral: #c41e3a;
+  --color-navy: #3d2426;
+  --color-blush: #f8ece8;
 
   --ease-ceremonial: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-silk: cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 :root {
-  --bg: #fbf6ee;
-  --fg: #2a3344;
+  --bg: #faf7f2;
+  --fg: #3d2426;
   --atmosphere: ivory;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
@@ -53,6 +53,16 @@ html {
   overflow-x: clip;
 }
 
+html.is-opening,
+html.is-opening body {
+  overflow: hidden !important;
+}
+
+html.is-opening .app-shell {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 html,
 body {
   background: var(--bg);
@@ -66,22 +76,23 @@ body {
   overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
   background:
-    radial-gradient(ellipse at 50% -10%, rgba(248, 214, 196, 0.7), transparent 48%),
-    linear-gradient(180deg, #fbf6ee 0%, #f6eadc 100%);
+    radial-gradient(ellipse at 50% -12%, rgba(196, 30, 58, 0.1), transparent 48%),
+    linear-gradient(180deg, #faf7f2 0%, #f3eadc 100%);
   -webkit-tap-highlight-color: transparent;
   touch-action: pan-y;
 }
 
 body.menu-locked,
 body.rsvp-locked,
-body.lightbox-locked {
+body.lightbox-locked,
+body.opening-locked {
   overflow: hidden;
   touch-action: none;
 }
 
 ::selection {
-  background: #e85a4f;
-  color: #fffaf4;
+  background: #c41e3a;
+  color: #fffdf9;
 }
 
 .font-serif {
@@ -206,31 +217,33 @@ body.lightbox-locked {
 
 .silk-texture {
   background-image:
-    radial-gradient(ellipse at 50% 0%, rgba(248, 214, 196, 0.45), transparent 46%),
-    linear-gradient(180deg, #fbf6ee 0%, #f7eadc 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(196, 30, 58, 0.1), transparent 46%),
+    linear-gradient(180deg, #faf7f2 0%, #f3eadc 100%);
 }
 
 .festival-kicker {
   font-family: var(--font-ui), var(--font-sans);
   font-size: 0.62rem;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--color-coral);
+  color: var(--color-gold);
 }
 
 .festival-title {
   font-family: var(--font-editorial), serif;
   font-style: italic;
   font-weight: 500;
-  color: var(--color-navy);
+  color: var(--color-sindoor);
   letter-spacing: -0.02em;
   overflow-wrap: break-word;
 }
 
 .festival-card {
   border-radius: var(--app-radius);
-  background: rgba(255, 250, 244, 0.78);
-  box-shadow: 0 18px 40px rgba(42, 51, 68, 0.06);
+  background: #fffdf9;
+  box-shadow:
+    inset 0 0 0 1px rgba(201, 164, 78, 0.55),
+    0 22px 44px rgba(61, 36, 38, 0.08);
 }
 
 .festival-pill {
@@ -239,8 +252,9 @@ body.lightbox-locked {
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: var(--color-coral);
-  color: #fffaf4;
+  background: var(--color-sindoor);
+  color: #fffdf9;
+  box-shadow: inset 0 0 0 1px rgba(201, 164, 78, 0.45);
   font-family: var(--font-ui), sans-serif;
   font-size: 0.72rem;
   letter-spacing: 0.18em;
@@ -262,7 +276,7 @@ body.lightbox-locked {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(#fbf6ee 1.15px, transparent 1.3px);
+  background-image: radial-gradient(#faf7f2 1.15px, transparent 1.3px);
   background-size: 7px 7px;
   mix-blend-mode: lighten;
   opacity: 0.88;
@@ -273,7 +287,7 @@ body.lightbox-locked {
 .atmosphere-marigold { --bg: #f3e3c2; --fg: #4a2a12; }
 .atmosphere-festive { --bg: #1c2430; --fg: #f6f0e6; }
 .atmosphere-ceremonial { --bg: #f7efe4; --fg: #3f151c; }
-.atmosphere-sindoor { --bg: #8f1d22; --fg: #f6f0e6; }
+.atmosphere-sindoor { --bg: #c41e3a; --fg: #faf7f2; }
 .atmosphere-candlelight { --bg: #2a1216; --fg: #f6e6d2; }
 
 .draw-stroke {
@@ -318,10 +332,10 @@ body.lightbox-locked {
 }
 
 .atmosphere-plane {
-  border: 1px solid rgba(232, 90, 79, 0.16);
-  background: linear-gradient(145deg, rgba(255, 250, 244, 0.22), rgba(232, 90, 79, 0.08));
-  box-shadow: 0 16px 36px rgba(42, 51, 68, 0.05);
-  opacity: 0.55;
+  border: 1px solid rgba(201, 164, 78, 0.4);
+  background: linear-gradient(145deg, rgba(255, 253, 249, 0.3), rgba(196, 30, 58, 0.1));
+  box-shadow: 0 16px 36px rgba(61, 36, 38, 0.06);
+  opacity: 0.5;
 }
 
 .scroll-cue {
@@ -344,6 +358,104 @@ body.lightbox-locked {
 
 .preserve-3d {
   transform-style: preserve-3d;
+}
+
+.envelope-stage {
+  width: min(88vw, 22.5rem);
+  height: min(68vw, 17.25rem);
+  transform-style: preserve-3d;
+}
+
+.envelope-back,
+.envelope-pocket {
+  position: absolute;
+  inset: 36% 0 0;
+  border-radius: 0 0 1.1rem 1.1rem;
+}
+
+.envelope-back {
+  background: linear-gradient(180deg, #f3e6d6, #e8d3bc);
+  box-shadow: 0 32px 60px rgba(42, 51, 68, 0.2);
+  transform: translateZ(0);
+}
+
+.envelope-pocket {
+  background:
+    linear-gradient(165deg, rgba(255, 250, 244, 0.98) 0%, rgba(248, 228, 214, 0.95) 38%, #f0c9a8 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  clip-path: polygon(0 16%, 50% 48%, 100% 16%, 100% 100%, 0 100%);
+  transform: translateZ(22px);
+}
+
+.envelope-flap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 56%;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+}
+
+.envelope-flap-skin,
+.envelope-flap-lining {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  clip-path: polygon(0 100%, 50% 4%, 100% 100%);
+}
+
+.envelope-flap-skin {
+  background: linear-gradient(180deg, #fffdf9 0%, #f3eadc 40%, #c41e3a 100%);
+  box-shadow: 0 10px 24px rgba(61, 36, 38, 0.14);
+}
+
+.envelope-flap-lining {
+  background: linear-gradient(180deg, #fff6ee, #f3e6d6);
+  transform: rotateX(180deg);
+}
+
+.envelope-letter {
+  position: absolute;
+  left: 7.5%;
+  right: 7.5%;
+  top: 20%;
+  height: 94%;
+  border-radius: 0.9rem;
+  background:
+    linear-gradient(180deg, #fffaf4 0%, #fff6ee 100%);
+  box-shadow: 0 16px 32px rgba(42, 51, 68, 0.14);
+  transform: translateZ(12px);
+}
+
+.envelope-seal {
+  position: absolute;
+  left: 50%;
+  bottom: -1.15rem;
+  z-index: 4;
+  display: grid;
+  width: 3.55rem;
+  height: 3.55rem;
+  place-items: center;
+  margin-left: -1.775rem;
+  border-radius: 999px;
+  background: radial-gradient(circle at 32% 28%, #e04558, #c41e3a 55%, #9e1830);
+  box-shadow:
+    0 10px 18px rgba(196, 30, 58, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transform: translateZ(30px);
+}
+
+.envelope-glow {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -18%;
+  height: 42%;
+  border-radius: 100%;
+  background: radial-gradient(ellipse at center, rgba(196, 30, 58, 0.26), transparent 68%);
+  filter: blur(8px);
+  transform: translateZ(-40px);
 }
 
 .float-3d {
@@ -376,6 +488,21 @@ body.lightbox-locked {
 
 .culture-motif {
   will-change: transform;
+}
+
+.crown-bob {
+  animation: crown-bob 5.8s var(--ease-silk) infinite alternate;
+  transform-origin: 50% 100%;
+}
+
+.crown-bob-groom {
+  animation-duration: 6.6s;
+  animation-delay: -1.4s;
+}
+
+@keyframes crown-bob {
+  from { transform: translate3d(-5px, 3px, 10px) rotateZ(-9deg) rotateY(-16deg); }
+  to { transform: translate3d(7px, -12px, 28px) rotateZ(8deg) rotateY(14deg); }
 }
 
 .photo-frame {
@@ -532,7 +659,9 @@ textarea:focus-visible {
 
   .float-3d,
   .float-3d-soft,
-  .ring-3d {
+  .ring-3d,
+  .crown-bob,
+  .crown-bob-groom {
     animation: none !important;
   }
 }

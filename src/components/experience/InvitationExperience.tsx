@@ -1,9 +1,10 @@
 "use client";
 
 import type { Guest, RsvpRecord } from "@/types/guest";
-import { ExperienceProvider } from "@/components/providers/ExperienceProvider";
+import { ExperienceProvider, useExperience } from "@/components/providers/ExperienceProvider";
 import { WeddingHero } from "@/components/hero/WeddingHero";
 import { PersonalNote } from "@/components/note/PersonalNote";
+import { CoupleIntroduction } from "@/components/couple/CoupleIntroduction";
 import { OurStory } from "@/components/story/OurStory";
 import { MemoryCanvas } from "@/components/gallery/MemoryCanvas";
 import { ClosingQuote } from "@/components/finale/FinalScene";
@@ -16,16 +17,16 @@ import { RSVPExperience } from "@/components/rsvp/RSVPExperience";
 import { Navigation } from "@/components/nav/Navigation";
 import { MusicControl } from "@/components/audio/MusicControl";
 import { PetalSystem } from "@/components/art/PetalSystem";
-import { CustomCursor } from "@/components/ui/CustomCursor";
 import { SampleBadge } from "@/components/ui/SampleBadge";
 import { ScrollAtmosphere } from "@/components/motion/ScrollAtmosphere";
 import { ScrollHint } from "@/components/motion/ScrollHint";
-import { BengaliTraditions } from "@/components/culture/BengaliTraditions";
+import { OpeningRitual } from "@/components/opening/OpeningRitual";
 import { wedding } from "@/config/wedding";
 import { coupleDisplay } from "@/lib/invite";
 
 function Story() {
   const { first, second } = coupleDisplay();
+  const { opened } = useExperience();
 
   return (
     <>
@@ -40,21 +41,21 @@ function Story() {
         </article>
       </noscript>
 
-      <SampleBadge />
-      <CustomCursor />
-      <ScrollAtmosphere />
+      <OpeningRitual />
+      {opened ? <SampleBadge /> : null}
+      {opened ? <ScrollAtmosphere /> : null}
       <PetalSystem />
-      <Navigation />
+      {opened ? <Navigation /> : null}
       <MusicControl />
-      <ScrollHint />
-      <main className="app-shell relative z-[2]">
+      {opened ? <ScrollHint /> : null}
+      <main className={`app-shell relative z-[2] ${opened ? "" : "hidden"}`} aria-hidden={!opened}>
         <WeddingHero />
         <PersonalNote />
+        <CoupleIntroduction />
         <OurStory />
         <MemoryCanvas />
         <ClosingQuote />
         <Countdown />
-        <BengaliTraditions />
         <WeddingJourney />
         <VenueExperience />
         <FamilyBlessings />

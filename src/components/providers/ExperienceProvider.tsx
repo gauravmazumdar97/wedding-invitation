@@ -32,7 +32,7 @@ export function ExperienceProvider({
   children: ReactNode;
 }) {
   const [language, setLanguage] = useState<Language>("en");
-  const [opened, setOpened] = useState(true);
+  const [opened, setOpened] = useState(false);
   const [musicOn, setMusicOn] = useState(false);
   const [rsvpOpen, setRsvpOpen] = useState(false);
   const [petalBurst, setPetalBurst] = useState(0);

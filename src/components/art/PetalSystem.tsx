@@ -23,7 +23,7 @@ function makePetals(count: number, prefix: string): Petal[] {
     duration: 12 + (index % 4) * 2.5,
     size: 7 + (index % 3) * 3,
     rotate: (index * 29) % 360,
-    hue: index % 3 === 0 ? "#e85a4f" : index % 3 === 1 ? "#e8a399" : "#d9b08a",
+    hue: index % 3 === 0 ? "#c41e3a" : index % 3 === 1 ? "#9e1830" : "#c9a44e",
   }));
 }
 
@@ -57,7 +57,7 @@ export function PetalSystem() {
   if (reduced) return null;
 
   return (
-    <div ref={layer} className="pointer-events-none fixed inset-0 z-[40] overflow-hidden will-change-transform" aria-hidden>
+    <div ref={layer} className={`pointer-events-none fixed inset-0 overflow-hidden will-change-transform ${opened ? "z-[40]" : "z-[80]"}`} aria-hidden>
       {petals.map((petal) => (
         <span
           key={petal.id}

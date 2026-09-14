@@ -38,6 +38,7 @@ export interface Person {
   bengaliInitial: string;
   parents: string;
   shortBio: string;
+  shortBioBn: string;
 }
 
 export interface StoryChapter {
@@ -91,8 +92,12 @@ export interface Venue {
 
 export interface FamilyMember {
   name: string;
+  nameBn?: string;
   relation: string;
   relationBn: string;
+  note?: string;
+  noteBn?: string;
+  circle: "parents" | "siblings" | "elders";
 }
 
 export interface PhotoSet {
@@ -173,6 +178,10 @@ export interface WeddingConfig {
   families: {
     intro: string;
     introBn: string;
+    brideHouse: string;
+    brideHouseBn: string;
+    groomHouse: string;
+    groomHouseBn: string;
     bride: FamilyMember[];
     groom: FamilyMember[];
   };
