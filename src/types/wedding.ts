@@ -208,6 +208,7 @@ export interface WeddingConfig {
   photos: PhotoSet;
   music: {
     src: string;
+    youtubeId?: string;
     title: string;
   };
   contacts: Array<{ name: string; role: string; phone: string }>;

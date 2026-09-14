@@ -586,7 +586,8 @@ export const wedding: WeddingConfig = {
   },
   music: {
     src: "/music/ambiance.mp3",
-    title: "Wedding ambience",
+    youtubeId: "-2w18bd-ZQ4",
+    title: "Wedding song",
   },
   contacts: [
     { name: "Ishani Goswami", role: "Family", phone: "+91 90000 00000" },

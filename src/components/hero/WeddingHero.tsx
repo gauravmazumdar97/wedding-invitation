@@ -52,7 +52,7 @@ export function WeddingHero() {
       <div ref={scrollLayer} className="preserve-3d will-change-transform">
         <div ref={tiltLayer} className="preserve-3d">
           <p className="festival-kicker">{language === "bn" ? wedding.copy.shubhoBibaho : "Shubho Bibaho"}</p>
-          <div className="mx-auto mt-7 flex max-w-xl items-end justify-center gap-2.5 sm:mt-10 sm:gap-5">
+          <div className="mx-auto mt-7 flex max-w-3xl items-end justify-center gap-3 sm:mt-10 sm:gap-6">
             {portraits.map((src, index) => (
               <div
                 key={src}
@@ -63,18 +63,18 @@ export function WeddingHero() {
               >
                 <TiltCard max={nativeScroll ? 8 : 14} pressFeedback>
                   <div
-                    className={`festival-card dot-screen overflow-hidden ${
+                    className={`festival-card overflow-hidden ${
                       index === 1
-                        ? "h-[8.75rem] w-[6.5rem] sm:h-56 sm:w-40"
-                        : "h-[6.25rem] w-[4.6rem] sm:h-40 sm:w-[7.25rem]"
+                        ? "h-[12.5rem] w-[9.25rem] sm:h-80 sm:w-56"
+                        : "h-[9.5rem] w-[7rem] sm:h-60 sm:w-44"
                     }`}
                   >
                     <WeddingPhoto
                       priority={index === 1}
                       src={src}
                       alt={first.fullName + " and " + second.fullName}
-                      className="h-full w-full"
-                      sizes="(max-width: 767px) 28vw, 160px"
+                      className="h-full w-full object-cover"
+                      sizes="(max-width: 767px) 36vw, 224px"
                     />
                   </div>
                 </TiltCard>
