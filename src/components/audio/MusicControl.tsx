@@ -61,8 +61,6 @@ export function MusicControl() {
   const musicOnRef = useRef(musicOn);
   const youtubeId = wedding.music.youtubeId;
 
-  musicOnRef.current = musicOn;
-
   useEffect(() => {
     if (!youtubeId || !hostRef.current) return undefined;
     const mount = document.createElement("div");
@@ -107,6 +105,7 @@ export function MusicControl() {
   }, [youtubeId]);
 
   useEffect(() => {
+    musicOnRef.current = musicOn;
     if (youtubeId) {
       if (musicOn) playerRef.current?.playVideo();
       else playerRef.current?.pauseVideo();
