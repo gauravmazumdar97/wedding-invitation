@@ -107,6 +107,10 @@ export interface PhotoSet {
   childhood: string;
   couplePortrait: string;
   finale: string;
+  groomPortrait: string;
+  bridePortrait: string;
+  groomSlideshow: string[];
+  brideSlideshow: string[];
   preWedding: string[];
   gallery: Array<{
     src: string;

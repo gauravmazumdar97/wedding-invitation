@@ -33,7 +33,9 @@ export function OurStory() {
                 return (
                   <li key={chapter.id} className="grid items-center gap-5 md:grid-cols-2 md:gap-12">
                     <div className={photoLeft ? "text-center md:order-1 md:text-left" : "text-center md:order-2 md:text-right"}>
-                      <p className="font-serif text-3xl italic text-[var(--color-coral)] sm:text-5xl">{chapter.year}</p>
+                      <p className="font-serif text-[clamp(1.35rem,4.5vw,2.35rem)] italic leading-tight text-[var(--color-coral)]">
+                        {chapter.year}
+                      </p>
                       <h3 className="mt-1 font-serif text-xl text-[var(--color-navy)] sm:mt-2 sm:text-3xl">
                         {language === "bn" ? chapter.titleBn : chapter.title}
                       </h3>
