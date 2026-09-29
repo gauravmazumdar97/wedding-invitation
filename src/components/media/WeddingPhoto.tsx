@@ -29,7 +29,7 @@ export function WeddingPhoto({
         fill
         priority={priority}
         sizes={sizes}
-        className="object-cover"
+        className="object-cover object-center"
       />
       {label ? (
         <figcaption className="pointer-events-none absolute bottom-3 left-3 font-serif text-xs tracking-[0.22em] text-white/80">
