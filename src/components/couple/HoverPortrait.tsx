@@ -28,10 +28,6 @@ export function HoverPortrait({
   const canSlide = fine && !reduced && sequence.length > 1;
 
   useEffect(() => {
-    setIndex(0);
-  }, [portrait]);
-
-  useEffect(() => {
     return () => {
       if (timer.current) window.clearInterval(timer.current);
     };

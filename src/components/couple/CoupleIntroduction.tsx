@@ -36,7 +36,12 @@ export function CoupleIntroduction() {
         <div className="mx-auto mt-10 grid max-w-4xl gap-8 sm:mt-12 md:grid-cols-2">
           {people.map(({ person, roleEn, roleBn, portrait, slides }) => (
             <article key={person.fullName}>
-              <HoverPortrait portrait={portrait} slides={slides} alt={person.fullName} />
+              <HoverPortrait
+                key={portrait}
+                portrait={portrait}
+                slides={slides}
+                alt={person.fullName}
+              />
               <p className="festival-kicker mt-5">{language === "bn" ? roleBn : roleEn}</p>
               <h3 className="mt-2 font-serif text-[2rem] leading-tight text-[var(--color-sindoor)] sm:text-4xl">
                 {person.fullName}
