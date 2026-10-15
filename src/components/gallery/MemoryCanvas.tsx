@@ -31,9 +31,9 @@ export function MemoryCanvas() {
     <section id="gallery" className="section-pad">
       <DepthStage>
         <FestivalHeading kicker="Our photos" title="Captured Together" />
-        <div className="mx-auto mt-8 grid max-w-3xl grid-cols-2 gap-2.5 sm:mt-12 sm:grid-cols-3 sm:gap-4">
+        <div className="mx-auto mt-8 grid max-w-4xl grid-cols-2 gap-2.5 sm:mt-12 sm:grid-cols-3 sm:gap-4">
           {photos.map((photo, index) => (
-            <TiltCard key={photo.src} max={10} pressFeedback wrapperClassName={`h-full ${mosaic[index] ?? ""}`}>
+            <TiltCard key={photo.src} max={6} pressFeedback wrapperClassName={`h-full ${mosaic[index] ?? ""}`}>
             <button
               type="button"
               onClick={() => setActive(photo.src)}
@@ -42,8 +42,9 @@ export function MemoryCanvas() {
               <WeddingPhoto
                 src={photo.src}
                 alt={language === "bn" ? photo.captionBn : photo.caption}
-                className="aspect-square h-full min-h-[6.5rem] w-full sm:min-h-[9rem]"
-                sizes="(max-width: 767px) 50vw, 33vw"
+                className="aspect-square h-full min-h-[7.5rem] w-full sm:min-h-[11rem]"
+                sizes={index === 0 ? "(max-width: 767px) 100vw, 720px" : "(max-width: 767px) 100vw, 420px"}
+                quality={92}
               />
             </button>
             </TiltCard>
@@ -63,8 +64,18 @@ export function MemoryCanvas() {
           >
             Close
           </button>
-          <div className="festival-card relative aspect-[3/4] w-full max-w-lg overflow-hidden" onClick={(event) => event.stopPropagation()}>
-            <WeddingPhoto src={active} alt="Gallery photograph" className="h-full w-full" sizes="512px" />
+          <div
+            className="festival-card relative h-[min(78vh,720px)] w-full max-w-5xl overflow-hidden"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <WeddingPhoto
+              src={active}
+              alt="Gallery photograph"
+              className="h-full w-full"
+              sizes="(max-width: 767px) 100vw, 1200px"
+              quality={95}
+              fit="contain"
+            />
           </div>
         </div>
       ) : null}

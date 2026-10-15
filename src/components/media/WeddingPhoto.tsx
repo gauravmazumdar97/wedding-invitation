@@ -10,6 +10,8 @@ interface WeddingPhotoProps {
   framed?: boolean;
   priority?: boolean;
   sizes?: string;
+  quality?: number;
+  fit?: "cover" | "contain";
 }
 
 export function WeddingPhoto({
@@ -20,6 +22,8 @@ export function WeddingPhoto({
   framed = false,
   priority = false,
   sizes = "(max-width: 767px) 100vw, (max-width: 1023px) 80vw, 1200px",
+  quality = 90,
+  fit = "cover",
 }: WeddingPhotoProps) {
   const image = (
     <figure className={cn("relative h-full w-full overflow-hidden bg-[var(--color-beige)]", !framed && className)}>
@@ -29,7 +33,8 @@ export function WeddingPhoto({
         fill
         priority={priority}
         sizes={sizes}
-        className="object-cover object-center"
+        quality={quality}
+        className={fit === "contain" ? "object-contain object-center" : "object-cover object-center"}
       />
       {label ? (
         <figcaption className="pointer-events-none absolute bottom-3 left-3 font-serif text-xs tracking-[0.22em] text-white/80">

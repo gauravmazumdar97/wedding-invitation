@@ -10,7 +10,6 @@ import { MemoryCanvas } from "@/components/gallery/MemoryCanvas";
 import { ClosingQuote } from "@/components/finale/FinalScene";
 import { Countdown } from "@/components/date/Countdown";
 import { WeddingJourney } from "@/components/journey/WeddingJourney";
-import { VenueExperience } from "@/components/venue/VenueExperience";
 import { FamilyBlessings } from "@/components/family/FamilyBlessings";
 import { BlessingsWall } from "@/components/blessings/BlessingsWall";
 import { RSVPExperience } from "@/components/rsvp/RSVPExperience";
@@ -57,7 +56,6 @@ function Story() {
         <ClosingQuote />
         <Countdown />
         <WeddingJourney />
-        <VenueExperience />
         <FamilyBlessings />
         <BlessingsWall />
         <RSVPExperience />

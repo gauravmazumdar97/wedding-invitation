@@ -11,7 +11,6 @@ const links = [
   { href: "#story", en: wedding.copy.ourStory, bn: wedding.copy.ourStoryBn },
   { href: "#events", en: wedding.copy.events, bn: wedding.copy.eventsBn },
   { href: "#gallery", en: wedding.copy.gallery, bn: wedding.copy.galleryBn },
-  { href: "#venue", en: wedding.copy.venue, bn: wedding.copy.venueBn },
   { href: "#rsvp", en: wedding.copy.rsvp, bn: wedding.copy.rsvp },
 ];
 
