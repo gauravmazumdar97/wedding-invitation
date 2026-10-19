@@ -276,7 +276,7 @@ export const wedding: WeddingConfig = {
       id: "wedding",
       enabled: true,
       name: "Wedding Ceremony",
-      nameBn: "শুভ বিবাহ",
+      nameBn: "বিবাহ স্থান",
       date: "26 November 2026",
       dateIso: "2026-11-26T19:00:00+05:30",
       time: "7:00 in the evening onwards (IST)",
