@@ -25,7 +25,7 @@ const featuredVenues = [
   },
   {
     venueId: "banquet",
-    labelEn: "Reception / Bou Bhaat",
+    labelEn: "Reception",
     labelBn: "বৌ ভাত / রিসেপশন",
     placeEn: "New Delhi",
     placeBn: "নয়াদিল্লি",

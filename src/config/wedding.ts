@@ -34,8 +34,8 @@ export const wedding: WeddingConfig = {
       shortBioBn:
         "দিল্লির জনকপুরীর ছেলে। ফুল-স্ট্যাক ডেভেলপার। সেন্ট মার্টিনস স্কুলের পর দিল্লিতে বিসিএ ও এমসিএ এবং ইস্ট লন্ডন বিশ্ববিদ্যালয়ে কম্পিউটার সায়েন্সে স্নাতকোত্তর করছেন।",
     },
-    nameOrder: "bride-first",
-    monogram: { left: "P", right: "G", joiner: "x" },
+    nameOrder: "groom-first",
+    monogram: { left: "G", right: "P", joiner: "x" },
   },
   date: {
     iso: "2026-11-26T19:00:00+05:30",
@@ -111,10 +111,10 @@ export const wedding: WeddingConfig = {
       year: "26 November 2026",
       title: "And Now",
       titleBn: "এবং এখন",
-      text: "On 26 November 2026, Puspita and Gaurav will marry. Both families chose the date and have given the couple their heartfelt blessing. Two families from different countries will become one, bringing joy to their relatives and especially their parents. Puspita and Gaurav are cherishing every moment as they look forward to beginning their life together.",
-      textBn: "২৬ নভেম্বর ২০২৬ পুষ্পিতা ও গৌরবের বিবাহ। তারিখ দুই পরিবার ঠিক করেছেন, আন্তরিক আশীর্বাদ দিয়েছেন। দুই দেশের দুই পরিবার এক হবে - আত্মীয়দের আনন্দ, বিশেষ করে পিতা-মাতার। পুষ্পিতা ও গৌরব প্রতিটি মুহূর্ত উপভোগ করছেন, একসঙ্গে নতুন জীবনের অপেক্ষায়।",
+      text: "On 26 November 2026, Gaurav and Puspita will marry. Both families chose the date and have given the couple their heartfelt blessing. Two families from different countries will become one, bringing joy to their relatives and especially their parents. Gaurav and Puspita are cherishing every moment as they look forward to beginning their life together.",
+      textBn: "২৬ নভেম্বর ২০২৬ গৌরব ও পুষ্পিতার বিবাহ। তারিখ দুই পরিবার ঠিক করেছেন, আন্তরিক আশীর্বাদ দিয়েছেন। দুই দেশের দুই পরিবার এক হবে - আত্মীয়দের আনন্দ, বিশেষ করে পিতা-মাতার। গৌরব ও পুষ্পিতা প্রতিটি মুহূর্ত উপভোগ করছেন, একসঙ্গে নতুন জীবনের অপেক্ষায়।",
       photo: "/photos/journey/and-now.png",
-      photoAlt: "Puspita and Gaurav",
+      photoAlt: "Gaurav and Puspita",
     },
 
   ],
@@ -124,9 +124,9 @@ export const wedding: WeddingConfig = {
     title: "Written in ritual",
     titleBn: "আলপনায় লেখা",
     intro:
-      "Two houses meet in rice, turmeric, sindoor and song: Goswami Bari of Sreemangal, and the Mazumdars of Delhi. These are the signs and rites that will hold Puspita and Gaurav as they marry.",
+      "Two houses meet in rice, turmeric, sindoor and song: Goswami Bari of Sreemangal, and the Mazumdars of Delhi. These are the signs and rites that will hold Gaurav and Puspita as they marry.",
     introBn:
-      "শ্রীমঙ্গলের গোস্বামী বাড়ি আর দিল্লির মজুমদার পরিবার মিলবে ধান, হলুদ, সিঁদুর আর গানে। পুষ্পিতা ও গৌরবের বিবাহ এই চিহ্ন ও রীতির মধ্যেই ধরা থাকবে।",
+      "শ্রীমঙ্গলের গোস্বামী বাড়ি আর দিল্লির মজুমদার পরিবার মিলবে ধান, হলুদ, সিঁদুর আর গানে। গৌরব ও পুষ্পিতার বিবাহ এই চিহ্ন ও রীতির মধ্যেই ধরা থাকবে।",
     rites: [
       {
         id: "aiburo-bhaat",
@@ -292,7 +292,7 @@ export const wedding: WeddingConfig = {
     {
       id: "reception",
       enabled: true,
-      name: "Reception / Bou Bhaat",
+      name: "Reception",
       nameBn: "বৌ ভাত / রিসেপশন",
       date: "2 December 2026",
       dateIso: "2026-12-02T19:00:00+05:30",
@@ -542,7 +542,7 @@ export const wedding: WeddingConfig = {
     ],
   },
   personalNote: {
-    from: "Puspita & Gaurav",
+    from: "Gaurav & Puspita",
     text: "We have shared so many chapters of our lives with the people we love. It would mean the world to begin this next one with you beside us.",
     textBn:
       "আমাদের এই নতুন পথচলার শুরুতে আপনাদের আশীর্বাদ ও উপস্থিতিই আমাদের সবচেয়ে বড় আনন্দ।",
@@ -614,9 +614,9 @@ export const wedding: WeddingConfig = {
     { name: "Arindam Mazumdar", role: "Wedding desk", phone: "+91 90000 00001" },
   ],
   social: {
-    title: "Puspita & Gaurav",
+    title: "Gaurav & Puspita",
     description: "A Bengali wedding in Kolkata",
-    descriptionBn: "আপনাকে আমাদের শুভ বিবাহে সাদর আমন্ত্রণ",
+    descriptionBn: "আমাদের শুভ বিবাহে আপনাদের সাদর নিমন্ত্রণ।",
     image: "/og.jpg",
     siteUrl: "https://example.com",
   },
@@ -631,7 +631,7 @@ export const wedding: WeddingConfig = {
     declineThanks: "You will be missed, and held close.",
     declineThanksBn: "আপনাদের অভাব অনুভব করব।",
     byline: "Please respond by 12 November 2026",
-    hashtag: "#PUSPITAWEDSGAURAV",
+    hashtag: "#GAURAVWEDSPUSPITA",
   },
   copy: {
     openInvitation: "Open Invitation",
