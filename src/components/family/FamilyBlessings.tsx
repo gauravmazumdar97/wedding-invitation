@@ -79,19 +79,19 @@ export function FamilyBlessings() {
         />
         <div className="relative mx-auto mt-10 grid max-w-4xl gap-7 sm:mt-12 md:grid-cols-2 md:items-start md:gap-6">
           <HouseCard
-            kicker="Kanyapaksha"
-            kickerBn="কন্যাপক্ষ"
-            house={wedding.families.brideHouse}
-            houseBn={wedding.families.brideHouseBn}
-            members={wedding.families.bride}
-            language={language}
-          />
-          <HouseCard
             kicker="Borpaksha"
             kickerBn="বরপক্ষ"
             house={wedding.families.groomHouse}
             houseBn={wedding.families.groomHouseBn}
             members={wedding.families.groom}
+            language={language}
+          />
+          <HouseCard
+            kicker="Kanyapaksha"
+            kickerBn="কন্যাপক্ষ"
+            house={wedding.families.brideHouse}
+            houseBn={wedding.families.brideHouseBn}
+            members={wedding.families.bride}
             language={language}
           />
         </div>

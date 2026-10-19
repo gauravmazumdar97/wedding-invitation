@@ -19,14 +19,14 @@ const featuredVenues = [
   {
     venueId: "mandap",
     labelEn: "Wedding Ceremony",
-    labelBn: "শুভ বিবাহ",
+    labelBn: "বিবাহের স্থান",
     placeEn: "Kolkata",
     placeBn: "কলকাতা",
   },
   {
     venueId: "banquet",
     labelEn: "Reception",
-    labelBn: "বৌ ভাত / রিসেপশন",
+    labelBn: "রিসেপশন",
     placeEn: "New Delhi",
     placeBn: "নয়াদিল্লি",
   },
