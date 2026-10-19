@@ -293,7 +293,7 @@ export const wedding: WeddingConfig = {
       id: "reception",
       enabled: true,
       name: "Reception",
-      nameBn: "বৌ ভাত / রিসেপশন",
+      nameBn: "রিসেপশন",
       date: "2 December 2026",
       dateIso: "2026-12-02T19:00:00+05:30",
       time: "7:00 in the evening onwards (IST)",
