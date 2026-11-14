@@ -50,6 +50,7 @@ export interface StoryChapter {
   textBn: string;
   photo: string;
   photoAlt: string;
+  gallery?: string[];
 }
 
 export interface WeddingTradition {
@@ -206,8 +207,16 @@ export interface WeddingConfig {
     afterBn: string;
   };
   finale: {
+    kicker: string;
+    kickerBn: string;
+    title: string;
+    titleBn: string;
+    text: string;
+    textBn: string;
     line: string;
     lineBn: string;
+    signOff: string;
+    signOffBn: string;
   };
   photos: PhotoSet;
   music: {

@@ -360,6 +360,19 @@ body.opening-locked {
   transform-style: preserve-3d;
 }
 
+.closing-invite {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(196, 30, 58, 0.08), transparent 42%),
+    radial-gradient(ellipse at 50% 100%, rgba(201, 164, 78, 0.12), transparent 48%),
+    linear-gradient(180deg, transparent 0%, rgba(143, 29, 34, 0.04) 50%, transparent 100%);
+}
+
+.closing-invite-glow {
+  background:
+    radial-gradient(circle at 18% 30%, rgba(201, 164, 78, 0.14), transparent 26%),
+    radial-gradient(circle at 82% 28%, rgba(196, 30, 58, 0.1), transparent 24%);
+}
+
 .envelope-stage {
   width: min(88vw, 22.5rem);
   height: min(68vw, 17.25rem);

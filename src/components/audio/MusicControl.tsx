@@ -130,7 +130,7 @@ export function MusicControl() {
       audio.volume = 0;
       const play = audio.play();
       if (play) {
-        play.then(() => fade(0.38)).catch(() => setMusicOn(false));
+        play.then(() => fade(0.2)).catch(() => setMusicOn(false));
       }
     } else {
       fade(0);

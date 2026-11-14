@@ -152,3 +152,4 @@ export function KanthaBorder({ className }: { className?: string }) {
     </svg>
   );
 }
+

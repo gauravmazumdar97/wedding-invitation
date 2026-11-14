@@ -51,7 +51,7 @@ export async function deleteGuest(guestId: string): Promise<void> {
 export function createDefaultGuest(guestId: string): Guest {
   return {
     guestId,
-    guestName: "Dear Guest",
+    guestName: "Guest",
     familyName: "Guest",
     greetingBn: "প্রিয় অতিথি",
     inviteText: "We would be delighted to celebrate with you",

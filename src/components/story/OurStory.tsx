@@ -1,10 +1,15 @@
 "use client";
 
 import { wedding } from "@/config/wedding";
-import { WeddingPhoto } from "@/components/media/WeddingPhoto";
 import { FestivalHeading } from "@/components/ui/FestivalHeading";
 import { DepthStage } from "@/components/motion/DepthStage";
 import { useExperience } from "@/components/providers/ExperienceProvider";
+import { StoryMomentPhoto } from "@/components/story/StoryMomentPhoto";
+
+function chapterPhotos(chapter: (typeof wedding.story)[number]): string[] {
+  const extras = chapter.gallery ?? [];
+  return Array.from(new Set([chapter.photo, ...extras]));
+}
 
 export function OurStory() {
   const { language } = useExperience();
@@ -50,17 +55,7 @@ export function OurStory() {
                       photoLeft ? "md:order-2 md:justify-start" : "md:order-1 md:justify-end"
                     }`}
                   >
-                    <div className="relative shrink-0">
-                      <span className="absolute -left-3 top-1/2 hidden h-3 w-3 -translate-y-1/2 rounded-full bg-[var(--color-coral)] md:block" />
-                      <div className="aspect-square size-40 shrink-0 overflow-hidden rounded-full sm:size-52">
-                        <WeddingPhoto
-                          src={chapter.photo}
-                          alt={chapter.photoAlt}
-                          className="h-full w-full"
-                          sizes="(max-width: 767px) 40vw, 208px"
-                        />
-                      </div>
-                    </div>
+                    <StoryMomentPhoto photos={chapterPhotos(chapter)} alt={chapter.photoAlt} />
                   </div>
                 </li>
               );

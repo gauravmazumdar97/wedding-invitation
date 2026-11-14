@@ -29,9 +29,9 @@ export function CoupleIntroduction() {
     <section className="section-pad">
       <DepthStage>
         <FestivalHeading
-          kicker={language === "bn" ? "কনে ও বর" : "The couple"}
-          title={language === "bn" ? "যাঁরা বিবাহ করছেন" : "Bride and Groom"}
-          bengali={language === "bn" ? undefined : "কনে ও বর"}
+          kicker={language === "bn" ? "দম্পতি" : "The couple"}
+          title={language === "bn" ? "বর ও কনে" : "Groom and Bride"}
+          bengali={language === "bn" ? undefined : "বর ও কনে"}
         />
         <div className="mx-auto mt-10 grid max-w-4xl gap-8 sm:mt-12 md:grid-cols-2">
           {people.map(({ person, roleEn, roleBn, portrait, slides }) => (

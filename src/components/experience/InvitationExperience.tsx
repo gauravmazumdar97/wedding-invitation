@@ -8,11 +8,10 @@ import { CoupleIntroduction } from "@/components/couple/CoupleIntroduction";
 import { OurStory } from "@/components/story/OurStory";
 import { MemoryCanvas } from "@/components/gallery/MemoryCanvas";
 import { ClosingQuote } from "@/components/finale/FinalScene";
+import { ClosingInvite } from "@/components/finale/ClosingInvite";
 import { Countdown } from "@/components/date/Countdown";
 import { WeddingJourney } from "@/components/journey/WeddingJourney";
 import { FamilyBlessings } from "@/components/family/FamilyBlessings";
-import { BlessingsWall } from "@/components/blessings/BlessingsWall";
-import { RSVPExperience } from "@/components/rsvp/RSVPExperience";
 import { Navigation } from "@/components/nav/Navigation";
 import { MusicControl } from "@/components/audio/MusicControl";
 import { PetalSystem } from "@/components/art/PetalSystem";
@@ -51,14 +50,13 @@ function Story() {
         <WeddingHero />
         <PersonalNote />
         <CoupleIntroduction />
+        <FamilyBlessings />
         <OurStory />
         <MemoryCanvas />
         <ClosingQuote />
         <Countdown />
         <WeddingJourney />
-        <FamilyBlessings />
-        <BlessingsWall />
-        <RSVPExperience />
+        <ClosingInvite />
       </main>
     </>
   );
