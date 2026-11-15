@@ -54,18 +54,22 @@ export function MemoryCanvas() {
 
       {active ? (
         <div
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(42,51,68,0.58)] px-[var(--page-x)] pt-[var(--safe-top)] pb-[var(--safe-bottom)]"
+          className="fixed inset-0 z-[90] flex items-center justify-center bg-[rgba(42,51,68,0.72)] px-[var(--page-x)] pt-[var(--safe-top)] pb-[var(--safe-bottom)]"
           onClick={() => setActive(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Gallery photograph"
         >
           <button
             type="button"
-            className="app-press absolute right-[var(--page-x-end)] top-[calc(var(--safe-top)+0.75rem)] inline-flex min-h-[var(--touch-min)] min-w-[var(--touch-min)] items-center justify-center rounded-full bg-[var(--color-paper)] font-sans text-xs tracking-[0.2em]"
+            className="app-press safe-fixed-tr fixed z-[91] inline-flex min-h-[var(--touch-min)] items-center justify-center rounded-full border border-[var(--color-navy)]/15 bg-[var(--color-paper)] px-5 font-sans text-[0.7rem] uppercase tracking-[0.18em] text-[var(--color-navy)] shadow-[0_10px_28px_rgba(28,18,16,0.28)]"
             onClick={() => setActive(null)}
+            aria-label="Close photograph"
           >
             Close
           </button>
           <div
-            className="festival-card relative h-[min(78vh,720px)] w-full max-w-5xl overflow-hidden"
+            className="festival-card relative h-[min(72vh,720px)] w-full max-w-5xl overflow-hidden"
             onClick={(event) => event.stopPropagation()}
           >
             <WeddingPhoto
@@ -76,6 +80,13 @@ export function MemoryCanvas() {
               quality={95}
               fit="contain"
             />
+            <button
+              type="button"
+              className="app-press absolute bottom-3 left-1/2 z-[1] inline-flex min-h-[var(--touch-min)] -translate-x-1/2 items-center justify-center rounded-full bg-[var(--color-sindoor)] px-5 font-sans text-[0.7rem] uppercase tracking-[0.18em] text-[var(--color-paper)] shadow-lg"
+              onClick={() => setActive(null)}
+            >
+              Close
+            </button>
           </div>
         </div>
       ) : null}

@@ -64,8 +64,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${serif.variable} ${bengali.variable} ${sans.variable}`}>
-      <body className={`${sans.className} antialiased`}>
+    <html lang="en" className={`${serif.variable} ${bengali.variable} ${sans.variable}`} suppressHydrationWarning>
+      <body className={`${sans.className} antialiased`} suppressHydrationWarning>
         <script
           dangerouslySetInnerHTML={{
             __html: "history.scrollRestoration='manual';window.scrollTo(0,0);",
