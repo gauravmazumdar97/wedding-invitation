@@ -13,15 +13,10 @@ export function StoryMomentPhoto({
 }) {
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const titleId = useId();
   const total = photos.length;
   const current = photos[Math.min(active, total - 1)] ?? photos[0];
   const hasGallery = total > 1;
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -78,7 +73,7 @@ export function StoryMomentPhoto({
         )}
       </div>
 
-      {mounted && open
+      {open
         ? createPortal(
             <div
               className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(28,18,16,0.88)] px-4 py-8"
