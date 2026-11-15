@@ -112,14 +112,6 @@ export function ClosingInvite() {
             ) : null}
           </div>
 
-          <h3 className="festival-title mt-8 text-[clamp(2rem,8vw,2.8rem)] leading-none">
-            {first.firstName}{" "}
-            <span className="not-italic text-[var(--color-coral)]">&</span> {second.firstName}
-          </h3>
-          <p className="mt-2 font-bn text-base text-[var(--color-maroon)] sm:text-lg">
-            {first.bengaliName} {"\u0993"} {second.bengaliName}
-          </p>
-
           <ShankhaPola className="mx-auto mt-8 h-8 w-[4.5rem] opacity-80" />
 
           <p className="mt-8 whitespace-pre-line font-serif text-base italic leading-relaxed text-[var(--color-muted)] sm:text-lg">
