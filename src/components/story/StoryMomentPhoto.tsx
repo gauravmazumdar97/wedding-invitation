@@ -57,9 +57,9 @@ export function StoryMomentPhoto({
                 sizes="(max-width: 767px) 40vw, 208px"
               />
             </div>
-            <p className="mt-2 font-serif text-sm italic text-[var(--color-coral)] transition group-hover:text-[var(--color-navy)]">
+            <span className="mt-3 inline-flex min-h-[2.25rem] items-center justify-center rounded-full border border-[var(--color-coral)] bg-[var(--color-paper)] px-4 font-sans text-[0.68rem] font-medium uppercase tracking-[0.18em] text-[var(--color-coral)] shadow-[0_8px_18px_rgba(61,36,38,0.08)] transition group-hover:bg-[var(--color-coral)] group-hover:text-[var(--color-paper)]">
               View photos · {total}
-            </p>
+            </span>
           </button>
         ) : (
           <div className="aspect-square size-40 shrink-0 overflow-hidden rounded-full sm:size-52">
@@ -76,13 +76,22 @@ export function StoryMomentPhoto({
       {open
         ? createPortal(
             <div
-              className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(28,18,16,0.88)] px-4 py-8"
+              className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(28,18,16,0.9)] px-4 py-8"
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
               onClick={() => setOpen(false)}
             >
-              <div className="relative w-full max-w-3xl" onClick={(event) => event.stopPropagation()}>
+              <button
+                type="button"
+                className="app-press safe-fixed-tr fixed z-[81] inline-flex min-h-[var(--touch-min)] min-w-[var(--touch-min)] items-center justify-center rounded-full border border-white/40 bg-[rgba(28,18,16,0.85)] px-4 font-sans text-[0.7rem] uppercase tracking-[0.18em] text-white shadow-lg"
+                onClick={() => setOpen(false)}
+                aria-label="Close gallery"
+              >
+                Close
+              </button>
+
+              <div className="relative w-full max-w-3xl pt-12" onClick={(event) => event.stopPropagation()}>
                 <p id={titleId} className="sr-only">
                   {alt}
                 </p>
@@ -98,7 +107,7 @@ export function StoryMomentPhoto({
                 <div className="mt-4 flex items-center justify-between gap-3 text-[var(--color-paper)]">
                   <button
                     type="button"
-                    className="app-press min-h-[var(--touch-min)] rounded-full border border-white/25 px-4 font-sans text-[0.65rem] tracking-[0.18em]"
+                    className="app-press min-h-[var(--touch-min)] rounded-full border border-white/40 bg-white/10 px-4 font-sans text-[0.65rem] tracking-[0.18em]"
                     onClick={() => step(-1)}
                   >
                     Prev
@@ -108,20 +117,12 @@ export function StoryMomentPhoto({
                   </p>
                   <button
                     type="button"
-                    className="app-press min-h-[var(--touch-min)] rounded-full border border-white/25 px-4 font-sans text-[0.65rem] tracking-[0.18em]"
+                    className="app-press min-h-[var(--touch-min)] rounded-full border border-white/40 bg-white/10 px-4 font-sans text-[0.65rem] tracking-[0.18em]"
                     onClick={() => step(1)}
                   >
                     Next
                   </button>
                 </div>
-                <button
-                  type="button"
-                  className="app-press absolute -top-1 right-0 min-h-[var(--touch-min)] min-w-[var(--touch-min)] rounded-full font-sans text-[0.65rem] tracking-[0.18em] text-white/85"
-                  onClick={() => setOpen(false)}
-                  aria-label="Close gallery"
-                >
-                  Close
-                </button>
               </div>
             </div>,
             document.body,
