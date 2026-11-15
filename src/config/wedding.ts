@@ -602,7 +602,7 @@ export const wedding: WeddingConfig = {
       "/photos/gaurav/groom-02.jpeg",
       "/photos/gaurav/groom-00.jpeg",
       "/photos/gaurav/groom-01.jpeg",
-      "/photos/gaurav/groom-03.jpeg",
+      "/photos/gaurav/groom-03.png",
       "/photos/gaurav/groom-04.jpeg",
       "/photos/gaurav/groom-05.jpeg",
       "/photos/gaurav/groom-06.jpeg",

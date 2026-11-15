@@ -32,6 +32,10 @@ function youtubeApi(): YouTubeNamespace | undefined {
   return (window as Window & { YT?: YouTubeNamespace }).YT;
 }
 
+function clampVolume(value: number): number {
+  return Math.min(1, Math.max(0, value));
+}
+
 function loadYouTubeApi(): Promise<YouTubeNamespace> {
   const existing = youtubeApi();
   if (existing?.Player) return Promise.resolve(existing);
@@ -59,7 +63,10 @@ export function MusicControl() {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<YouTubePlayer | null>(null);
   const musicOnRef = useRef(musicOn);
+  const fadeFrameRef = useRef<number | null>(null);
+  const pauseTimerRef = useRef<number | null>(null);
   const youtubeId = wedding.music.youtubeId;
+  const playbackVolume = 0.2;
 
   useEffect(() => {
     if (!youtubeId || !hostRef.current) return undefined;
@@ -115,28 +122,52 @@ export function MusicControl() {
     const audio = audioRef.current;
     if (!audio) return undefined;
 
+    const stopFade = () => {
+      if (fadeFrameRef.current !== null) {
+        cancelAnimationFrame(fadeFrameRef.current);
+        fadeFrameRef.current = null;
+      }
+      if (pauseTimerRef.current !== null) {
+        window.clearTimeout(pauseTimerRef.current);
+        pauseTimerRef.current = null;
+      }
+    };
+
     const fade = (target: number) => {
-      const start = audio.volume;
+      stopFade();
+      const end = clampVolume(target);
+      const start = clampVolume(audio.volume);
       const startTime = performance.now();
       const step = (now: number) => {
         const t = Math.min(1, (now - startTime) / 700);
-        audio.volume = start + (target - start) * t;
-        if (t < 1) requestAnimationFrame(step);
+        audio.volume = clampVolume(start + (end - start) * t);
+        if (t < 1) {
+          fadeFrameRef.current = requestAnimationFrame(step);
+          return;
+        }
+        fadeFrameRef.current = null;
       };
-      requestAnimationFrame(step);
+      fadeFrameRef.current = requestAnimationFrame(step);
     };
 
     if (musicOn) {
+      stopFade();
       audio.volume = 0;
       const play = audio.play();
       if (play) {
-        play.then(() => fade(0.2)).catch(() => setMusicOn(false));
+        play.then(() => fade(playbackVolume)).catch(() => setMusicOn(false));
       }
     } else {
       fade(0);
-      window.setTimeout(() => audio.pause(), 720);
+      pauseTimerRef.current = window.setTimeout(() => {
+        audio.pause();
+        pauseTimerRef.current = null;
+      }, 720);
     }
-    return undefined;
+
+    return () => {
+      stopFade();
+    };
   }, [musicOn, setMusicOn, youtubeId]);
 
   return (
